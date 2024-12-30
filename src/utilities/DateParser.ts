@@ -1,5 +1,5 @@
 export default class DateParser {
-    public static parseItalianDate = (dateStr: string): Date => {
+    public static parseItalianDate = (dateStr: string): Date | null => {
         const monthMap: Record<string, number> = {
             'Gennaio': 1,
             'Febbraio': 2,
@@ -15,12 +15,16 @@ export default class DateParser {
             'Dicembre': 12
         };
 
-        const [day, month, year] = dateStr.split(' ');
+        if (!dateStr) return null;
+        const parts = dateStr.trim().split(' ');
+        if (parts.length !== 3) return null;
 
-        const monthNumber = monthMap[month];
+        const [dayStr, monthStr, yearStr] = parts;
+        const day = parseInt(dayStr, 10);
+        const month = monthMap[monthStr];
+        const year = parseInt(yearStr, 10);
 
-        const formattedDateStr = `${year}-${monthNumber.toString().padStart(2, '0')}-${day.padStart(2, '0')}`;
-
-        return new Date(formattedDateStr);
-    }
+        if (!day || !month || !year) return null;
+        return new Date(year, month - 1, day);
+    };
 }
