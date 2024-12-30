@@ -1,15 +1,16 @@
 import {type Genre, ItalianGenreMapping} from "./Genre.ts";
 import {ItalianStatusMapping, Status} from "./Status.ts";
-import type Tadako from "./Tadako.ts";
 import axios from "axios";
 import * as cheerio from "cheerio";
 import DateParser from "./utilities/DateParser.ts";
+import Episode from "./Episode.ts";
+import Tadako from "./Tadako.ts";
 
 export default class Anime {
 
     public url: string;
     public title: string = "";
-    public japaneseTitle: string | null = null;
+    public alternativeTitle: string | null = null;
     public AniListURL: string | null = null;
     public MyAnimeListURL: string | null = null;
     public trailer: string | null = null;
@@ -21,20 +22,25 @@ export default class Anime {
     public genres: Genre[] = [];
     public rating: number = 0;
     public duration: string = "0 min/ep";
-    public episodes: number = 1;
+    public episodes: Episode[] = [];
     public status: Status = Status.FINISHED;
     public views: number = 0;
     public keywords: string = "";
 
-    constructor(url: string) {
+    constructor(url: string, title: string = "") {
         this.url = url;
-        this.init().then()
+        this.title = title;
     }
 
-    static async get(url: string): Promise<Anime> {
+    static get = async (url: string): Promise<Anime> => {
         const instance = new Anime(url);
         await instance.init();
         return instance;
+    }
+
+    get = async (): Promise<Anime> => {
+        await this.init();
+        return this;
     }
 
 
@@ -43,7 +49,7 @@ export default class Anime {
         const $ = cheerio.load(data);
 
         this.title = $("#anime-title").text();
-        this.japaneseTitle = $("#anime-title").attr("data-jtitle") ?? this.japaneseTitle;
+        this.alternativeTitle = $("#anime-title").attr("data-jtitle") ?? this.alternativeTitle;
         this.AniListURL = $("#anilist-button")?.attr("href") ?? this.AniListURL;
         this.MyAnimeListURL = $("#mal-button")?.attr("href") ?? this.MyAnimeListURL;
         this.trailer = $("#controls .trailer")?.attr("data-url") ? `https://www.youtube.com/watch?v=${$("#controls .trailer")?.attr("data-url")?.split("/").pop()}` : this.trailer;
@@ -55,12 +61,11 @@ export default class Anime {
         $('dt:contains("Genere:")').next().find("a").each((i, el) => {this.genres.push(ItalianGenreMapping[$(el).text().trim().toUpperCase()])});
         this.rating = parseFloat($('dt:contains("Voto:")').next().find('.rating span').text().trim());
         this.duration = $('dt:contains("Durata:")').next().text().trim();
-        this.episodes = parseInt($('dt:contains("Episodi:")').next().text().trim());
+        $("#animeId .widget-body .server.active .episodes.range.active .episode").each((index, episode) => {
+            this.episodes.push(new Episode(`https://${Tadako.domain}${$(episode).find("a").attr("href")}`))
+        });
         this.status = ItalianStatusMapping[$('dt:contains("Stato:")').next().find("a").text().trim().toUpperCase()]
         this.views = parseInt($('dt:contains("Visualizzazioni:")').next().text().trim());
         this.keywords = $("#tagsReload").text();
     }
-
-
-
 }

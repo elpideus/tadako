@@ -4,7 +4,7 @@ import * as cheerio from "cheerio";
 
 export default class Tadako {
 
-    public static domain = "animeworld.so";
+    public static domain = "www.animeworld.so";
 
     public static routes = {
         list: "az-list"
@@ -22,7 +22,7 @@ export default class Tadako {
                 shortDescription: $(element).find(".info p").text(),
                 poster: $(element).find("a img").attr("src") ?? null,
                 releaseDate: $(element).find(".info .name").attr("data-tippy-content") ?? null,
-                url: `https://www.${Tadako.domain}${$(element).find(".info .name").attr("href")}`
+                url: `https://${Tadako.domain}${$(element).find(".info .name").attr("href")}`
             });
         });
 
