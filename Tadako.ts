@@ -2,7 +2,7 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import Anime from "./src/Anime.ts";
 import DateParser from "./src/utilities/DateParser.ts";
-
+import type SearchFilters from "./src/interfaces/SearchFilters.ts";
 
 export default class Tadako {
 
@@ -35,15 +35,20 @@ export default class Tadako {
         return items;
     }
 
-    // TODO: Complete this with filters and stuff
-    public static search = async (query: string) => {
-        const { data } = await axios.get(`https://${Tadako.domain}/${Tadako.routes.search}?keyword=${query}`);
+    public static search = async (query: string, filters: SearchFilters = {}) => {
+
+        const { data } = await axios.get(`https://${Tadako.domain}/${Tadako.routes.search}`, { params: {keyword: query, ...filters} });
         const $ = cheerio.load(data);
 
         const results: Anime[] = [];
 
         $("#main .content .widget .widget-body .film-list .item").each((index, item) => {
-            results.push(new Anime(`https://${Tadako.domain}${$(item).find("a.name").attr("href")}`, {title: $(item).find("a.name").text(), poster: $(item).find("a.poster img").attr("src")}))
+            results.push(new Anime(
+                `https://${Tadako.domain}${$(item).find(".inner a.name").attr("href")}`, {
+                    title: $(item).find(".inner a.name").text(),
+                    poster: $(item).find(".inner a.poster img").attr("src"),
+                    alternativeTitle: $(item).find(".inner a.name").attr("data-jtitle")
+                }))
         });
 
         return results;

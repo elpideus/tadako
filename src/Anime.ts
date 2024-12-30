@@ -1,5 +1,5 @@
-import {type Genre, ItalianGenreMapping} from "./Genre.ts";
-import {ItalianStatusMapping, Status} from "./Status.ts";
+import {type Genre, ItalianGenreMapping} from "./enums/Genre.ts";
+import {ItalianStatusMapping, Status} from "./enums/Status.ts";
 import axios from "axios";
 import * as cheerio from "cheerio";
 import DateParser from "./utilities/DateParser.ts";
