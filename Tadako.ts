@@ -4,6 +4,7 @@ import Anime from "./src/Anime.ts";
 import DateParser from "./src/utilities/DateParser.ts";
 import type SearchFilters from "./src/interfaces/SearchFilters.ts";
 
+// TODO: Add Documentation
 export default class Tadako {
 
     public static domain = "www.animeworld.so";
@@ -35,20 +36,23 @@ export default class Tadako {
         return items;
     }
 
-    public static search = async (query: string, filters: SearchFilters = {}) => {
+    public static search = async (query: string = "", filters: SearchFilters = {}) => {
 
         const { data } = await axios.get(`https://${Tadako.domain}/${Tadako.routes.search}`, { params: {keyword: query, ...filters} });
         const $ = cheerio.load(data);
 
-        const results: Anime[] = [];
+        const results: {page: number, maxPages: number, results: Anime[], filters: SearchFilters} = {page: 0, maxPages: 0, results: [], filters: {}};
 
         $("#main .content .widget .widget-body .film-list .item").each((index, item) => {
-            results.push(new Anime(
+            results.results.push(new Anime(
                 `https://${Tadako.domain}${$(item).find(".inner a.name").attr("href")}`, {
                     title: $(item).find(".inner a.name").text(),
                     poster: $(item).find(".inner a.poster img").attr("src"),
                     alternativeTitle: $(item).find(".inner a.name").attr("data-jtitle")
-                }))
+                }));
+            results.page = (filters.page ?? parseInt($("#main .content .widget .widget-body .paging-wrapper #paging-form #page-input").attr("placeholder") ?? "1"));
+            results.maxPages = parseInt($("#main .content .widget .widget-body .paging-wrapper #paging-form .total").text() ?? "1");
+            results.filters = filters;
         });
 
         return results;

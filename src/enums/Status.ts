@@ -1,5 +1,4 @@
-import {Genre} from "./Genre.ts";
-
+// TODO: Add Documentation
 export enum Status {
     ONGOING,
     FINISHED,

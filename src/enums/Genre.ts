@@ -1,3 +1,4 @@
+// TODO: Add Documentation
 export enum Genre {
     MARTIAL_ARTS = 3,
     AVANTGARDE = 5,

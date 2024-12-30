@@ -1,3 +1,4 @@
+// TODO: Add Documentation
 export enum MediaType {
     ANIME = 0,
     MOVIE = 4,

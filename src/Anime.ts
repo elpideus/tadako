@@ -6,6 +6,7 @@ import DateParser from "./utilities/DateParser.ts";
 import Episode from "./Episode.ts";
 import Tadako from "../Tadako.ts";
 
+// TODO: Add Documentation
 export default class Anime {
 
     public url: string;

@@ -6,6 +6,7 @@ import type {Studio} from "../enums/Studio.ts";
 import type {AudioLanguage} from "../enums/AudioLanguage.ts";
 import type {Sorting} from "../enums/Sorting.ts";
 
+// TODO: Add Documentation
 export default interface SearchFilters {
     genre?: Genre | number;
     season?: Season | string;
@@ -16,4 +17,5 @@ export default interface SearchFilters {
     dubbing?: boolean | number;
     audioLanguage?: AudioLanguage | string;
     sorting?: Sorting | number;
+    page?: number;
 }

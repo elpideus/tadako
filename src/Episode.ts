@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
+// TODO: Add Documentation
 export default class Episode {
 
     public url: string;

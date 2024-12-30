@@ -1,3 +1,4 @@
+// TODO: Add Documentation
 export enum Sorting {
     DEFAULT,
     NEW_ADDITIONS,
