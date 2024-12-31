@@ -1,3 +1,14 @@
+![npm Version](https://img.shields.io/badge/npm-v11.0.0-informational?style=for-the-badge&logo=npm)
+![GitHub release ](https://img.shields.io/github/v/release/elpideus/tadako?include_prereleases&style=for-the-badge&logo=github)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/elpideus/tadako?style=for-the-badge&logo=github)
+![GitHub all releases](https://img.shields.io/github/downloads/elpideus/tadako/total?style=for-the-badge&logo=github)
+![GitHub](https://img.shields.io/github/license/elpideus/tadako?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/elpideus/tadako?style=for-the-badge&label=Updates%20Frequency)
+![GitHub last commit](https://img.shields.io/github/last-commit/elpideus/tadako?style=for-the-badge&label=Updated)
+![GitHub Repo stars](https://img.shields.io/github/stars/elpideus/tadako?label=Stars&style=for-the-badge&logo=github)
+![GitHub forks](https://img.shields.io/github/forks/elpideus/tadako?label=Forks&style=for-the-badge&logo=github)
+![GitHub watchers](https://img.shields.io/github/watchers/elpideus/tadako?label=Watchers&style=for-the-badge&logo=github)
+
 # Tadako - An unofficial AnimeWorld API
 
 This is a library inspired by [MainKronos' AnimeWorld-API](https://github.com/MainKronos/AnimeWorld-API).
