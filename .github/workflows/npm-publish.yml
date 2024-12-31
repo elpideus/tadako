@@ -17,7 +17,7 @@ jobs:
                   node-version: 12
                   registry-url: https://registry.npmjs.org
             - name: Publish Release on NPM
-              run: npm publish --access public
+              run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc && npm publish --access public
               working-directory: tadako
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
