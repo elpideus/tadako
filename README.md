@@ -2,6 +2,7 @@
 ![GitHub release ](https://img.shields.io/github/v/release/elpideus/tadako?include_prereleases&style=for-the-badge&logo=github)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/elpideus/tadako?style=for-the-badge&logo=github)
 ![GitHub all releases](https://img.shields.io/github/downloads/elpideus/tadako/total?style=for-the-badge&logo=github)
+![npm downloads](https://img.shields.io/npm/dt/tadako?style=for-the-badge&logo=npm)
 ![GitHub](https://img.shields.io/github/license/elpideus/tadako?style=for-the-badge)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/elpideus/tadako?style=for-the-badge&label=Updates%20Frequency)
 ![GitHub last commit](https://img.shields.io/github/last-commit/elpideus/tadako?style=for-the-badge&label=Updated)
