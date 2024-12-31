@@ -1,23 +1,28 @@
-name: "Publish Release on NPM"
+name: Publish Release to npm
 
 on:
-    release:
-        types: [published]
+  release:
+    types:
+      - published
 
 jobs:
-    release:
-        name: Publish Release on NPM
-        runs-on: ubuntu-latest
-        steps:
-            - name: 📚 checkout
-              uses: actions/checkout@v2.1.1
-            - name: 🟢 node
-              uses: actions/setup-node@v1.4.2
-              with:
-                  node-version: 12
-                  registry-url: https://registry.npmjs.org
-            - name: Publish Release on NPM
-              run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc && npm publish --access public
-              working-directory: tadako
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '23'  # Or any other version you need
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up npm authentication
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: Publish to npm
+        run: npm publish
