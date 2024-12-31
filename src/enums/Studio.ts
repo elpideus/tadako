@@ -1,11 +1,92 @@
-// TODO: Add Documentation
+// TODO: Complete descriptions for all the studios
+
+/**
+ * Enum representing different animation studios.
+ * The keys are internal identifiers, and the values are the corresponding names of the animation studios.
+ *
+ * This enum is useful for categorizing and referencing animation studios in a structured manner.
+ * Each entry represents a specific animation studio, providing an easy way to access studio names
+ * throughout the library.
+ */
 export enum Studio {
 
     UNKNOWN = "Sconosciuto",
+
+    /**
+     * Shiyong Wang founded [2:10 Animation](https://en.2-10.cn/) as a small studio in 2007, Wuhan, China. After dedicating to Chinese
+     * animation for 16 years, the company now has more than 500 employees offering a package service of cartoon IP
+     * production and operation. Their services include 6 complete and independent industrial chain modules including
+     * animation project planning, script creation, animation production, R&D, publicity and distribution, and
+     * commercial operation. They maintain strategic cooperation with leading companies of film and television, video,
+     * novel, game, and consumer goods industries, etc.
+     *
+     * Their works are of multiple categories. It has more than ten high-quality original popular IPs such as
+     * "The Silver Guardian", "I am Joybo", "The Great Warrior Wall", "Glaze War" and "The Country of Rare Treasures".
+     * They continue to produce high-quality CG short films for dozens of international game products such as
+     * "League of Legends", "Onmyoji", "Arknights", "Honor of Kings", "Harry Potter: Magic Awakened". And they have
+     * created animation series for many popular IPs such as "Close Combat Mage", "Thousands of World",
+     * "Everlasting God of Sword", "Lighter and Princess Dress".
+     *
+     * While being recognized by the market and users, they have won the recognition and investment of Alibaba,
+     * Pop Mart, Frees Fund, COL Group, HyperGryph and other companies and institutions.
+     *
+     * In 2022, in addition to continuing in-depth cooperation with more than 30 game companies, they also participated
+     * in the production of many well-known animation IPs such as "Digimon" and "Transformers" and so on.
+     */
     TWOTEN_ANIMATION = "2:10 AM Animation",
+
+    /**
+     * We couldn't find much about this studio. We know they have worked on titles like "Megalobox", "Sweetness &
+     * Lightning", "The Pilot's Love Song" and "Actually, I am...".
+     *
+     * The studio seems to have changed their name to TMS/3xCube. They were referred to as 東京ムービー/3xCube in the past.
+     *
+     * @link [TMS Website](https://tmsanime.com/)
+     * @link [Wikipedia](https://en.wikipedia.org/wiki/TMS_Entertainment)
+     */
     TRIPLEXCUBE = "3xCube",
+
+    /**
+     * Sadly we weren't able to find official information about this studio.
+     *
+     * According to [AnimeNewsNetwork](https://www.animenewsnetwork.com), in
+     * [this article](https://www.animenewsnetwork.com/encyclopedia/company.php?id=21406), the company has worked on
+     * a number of titles, some of which are pretty well known, namely "Attack on Titan Final Season THE FINAL CHAPTERS
+     * (TV)", "Attack on Titan The Final Season Part 2 (TV)", "Chainsaw Man (TV)", "Josee, The Tiger and the Fish
+     * (movie)", "Psycho-Pass 3: First Inspector (movie)" and "Trigun Stampede (TV)".
+     */
     FIVE_INCORPORATED = "5 Inc.",
+
+    /**
+     * According to [Wikipedia](https://wikipedia.org) in
+     * [this article](https://en.wikipedia.org/wiki/Eight_Bit_(studio)):
+     *
+     * Eightbit co., Ltd. (Japanese: 株式会社エイトビット, Hepburn: Kabushiki-gaisha Eitobitto), also known as 8bit, is a
+     * Japanese animation studio established in September 2008 by former Satelight members.
+     *
+     * On June 8, 2020, it was announced that Eight Bit had entered a partnership with Bandai Namco to create multiple
+     * anime productions. Their first project will be The Slime Diaries: That Time I Got Reincarnated as a Slime.
+     *
+     * On November 1, 2021, Eight Bit opened a new studio in the Niigata Prefecture.
+     *
+     * On April 1, 2024, Eight Bit became a wholly owned subsidiary of Bandai Namco Filmworks.
+     *
+     * According to [AniDB](https://anidb.net) on [this page](https://anidb.net/creator/21883) and
+     * [MyAnimeList](https://myanimelist.net/) on [this page](https://myanimelist.net/anime/producer/441/8bit):
+     *
+     * Eight Bit was originally Satelight's first studio and was involved in the production of several works including
+     * "Noein", "Sousei no Aquarion" and "Macross F". It became independent in September 2008 under producer Kasai
+     * Tsutomu. Its headquarters is located in Suginami, Tokyo, Japan. The major line of work is planning and production
+     * of animation programs and 3DCG work.
+     *
+     * The studio's first major production was the "Gekijouban Macross F: Itsuwari no Utahime" feature film in
+     * collaboration with the former parent company Satelight in 2009. The first major work on its own was the
+     * television anime series "IS: Infinite Stratos" in 2011.
+     *
+     * @link [Official Website](https://8bit-studio.co.jp)
+     */
     EIGHT_BIT = "8bit",
+
     A1_PICTURES= "A-1 Pictures",
     A_LINE = "A-Line",
     A_REAL = "A-Real",
