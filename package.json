@@ -5,6 +5,9 @@
   "keywords": ["anime", "data", "information", "api", "scraping"],
   "author": "Stefan Cucoranu <elpideus@gmail.com>",
   "license": "GPLv3",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/elpideus/Tadako.git"
