@@ -7,7 +7,7 @@
   "license": "GPLv3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elpideus/Tadako.git"
+    "url": "https://github.com/elpideus/tadako.git"
   },
   "main": "index.ts",
   "type": "module",
