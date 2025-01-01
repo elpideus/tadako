@@ -1,6 +1,6 @@
 {
   "name": "tadako",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An unofficial AnimeWorld API",
   "keywords": ["anime", "data", "information", "api", "scraping"],
   "author": "Stefan Cucoranu <elpideus@gmail.com>",
