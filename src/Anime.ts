@@ -179,7 +179,7 @@ export default class Anime {
         this.duration = $('dt:contains("Durata:")').next().text().trim();
         $("#animeId .widget-body .server.active .episodes.range").each((index, range) => {
             $(range).find("li.episode").each((index, episode) => {
-                this.episodes.push(new Episode(`https://${Tadako.domain}${$(episode).find("a").attr("href")}`))
+                this.episodes.push(new Episode(`https://${Tadako.domain}${$(episode).find("a").attr("href")}`, this))
             });
         });
         this.status = ItalianStatusMapping[$('dt:contains("Stato:")').next().find("a").text().trim().toUpperCase()]

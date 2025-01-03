@@ -33,7 +33,7 @@ npm install tadako
 
 ---
 
-## Usage
+## Library Usage
 
 ### Importing
 You can import the library into your project and just start working with it.
@@ -113,7 +113,8 @@ sources that are helping us in doing so.
 These are things that we still need to implement in no specific order.
 
 - Add support for different download servers
-- Allow direct download of episodes using the library
-- Allow streaming of anime using the library (inspired by [ani-cli](https://github.com/pystardust/ani-cli))
+- Direct download of episodes using the library
+- Streaming of anime using the library (inspired by [ani-cli](https://github.com/pystardust/ani-cli))
 - Create documentation website
-- Add descriptions to all the studios.
+- Finish descriptions of all the studios.
+- Automatic download of platform-specific dependencies (like mpv)

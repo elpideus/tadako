@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
+import Anime from "./Anime.ts";
 
 /**
  * Class representing an episode of an anime.
@@ -12,13 +13,16 @@ export default class Episode {
      */
     public url: string;
 
+    public anime: Anime | null;
+
     /**
      * Creates an instance of the Episode class.
      *
      * @param {string} url - The URL of the episode page from which the download link will be scraped.
      */
-    constructor(url: string) {
+    constructor(url: string, anime: Anime | null = null) {
         this.url = url;
+        this.anime = anime;
     }
 
     /**
@@ -33,5 +37,18 @@ export default class Episode {
 
         return $("#download .widget.downloads .widget-body #alternativeDownloadLink").attr("href");
     }
+
+    // public download = async (path: string, fileName: string | null = null) => {
+    //     const downloader = new Downloader(this.url);
+    //     if (!fileName) {
+    //         const splitDownloadURL = (await this.getDownloadURL())?.split("/");
+    //         if (splitDownloadURL && splitDownloadURL.length > 1) {
+    //             const filename = splitDownloadURL[splitDownloadURL.length - 1];
+    //             await downloader.downloadAnimeMP4(filename, path)
+    //         }
+    //         return
+    //     }
+    //     await downloader.downloadAnimeMP4(fileName, path);
+    // }
 
 }
