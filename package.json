@@ -33,6 +33,7 @@
   "files": [
     "index.ts",
     "cli.ts",
+    "cli.js",
     "src",
     "src/Tadako.ts",
     "LICENSE",
