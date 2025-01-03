@@ -42,6 +42,7 @@ export default class DateParser {
         return new Date(year, month - 1, day);
     };
 
+    // TODO: Add documentation
     public static secondsToHumanTime = (seconds: number): string => {
         const days = Math.floor(seconds / (24 * 3600));
         seconds %= 24 * 3600;

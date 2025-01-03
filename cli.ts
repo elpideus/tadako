@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// TODO: Finish documentation
 /**
  * CLI for interacting with the Tadako application to search, select, and play anime episodes.
  *
@@ -174,12 +175,12 @@ const runCLI = async () => {
     let options = parseArgs(args.slice(2));
 
     if (!query) {
-        console.log("Usage: tadako <anime-title> <command> [--episode <episode-number>] [--language <language>] [--other-options]");
+        console.log("Usage: tadako <anime-title> <command> [--episode <episode-number>] [--language <language>] [other options]");
         process.exit(1);
     }
 
     if (query === "--help") {
-        console.log("We are working on a help section...");
+        console.log(`Usage: tadako <anime-title> [<command>] [options]\n\nThe following commands are available:\n  watch       Starts streaming the anime episode via mpv\n  download    Downloads the anime episode\n\nThe following options are available:\n  --help         Displays help regarding the program\n  --episode     (optional) Defines the anime episode for the command [Example: --episode 6]\n  --language    (optional, defaults to "it") Defines the audio language for the anime [Example: --language jp]\n  --genre       (optional) Defines the genre for the anime search filters [Example: --genre 8]\n  --season      (optional) Defines the season for the anime search filters [Example: --season winter]\n  --year        (optional) Defines the year for the anime search filters [Example: --year 2012]\n  --category    (optional) Defines the category for the anime search filters [Example: --category 0]\n  --status      (optional) Defines the season for the anime search filters [Example: --status 1]\n  --studio      (optional) Defines the studio for the anime search filters [Example: --studio TNK]\n  --dub         (optional) Defines the dubbing for the anime search filters [Example: --dub 0]\n  --sort        (optional) Defines the sorting for the anime search filters [Example: --sort 0]`);
         process.exit();
     }
 

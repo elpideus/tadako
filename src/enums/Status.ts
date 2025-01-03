@@ -6,6 +6,7 @@ export enum Status {
     DROPPED
 }
 
+// TODO: Add documentation
 export const ItalianStatusMapping: Record<string, Status> = {
     "IN CORSO": Status.ONGOING,
     "FINITO": Status.FINISHED,

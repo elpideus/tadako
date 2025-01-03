@@ -4,6 +4,7 @@ import https from "https";
 import fs from "fs";
 import DateParser from "./DateParser.ts";
 
+// TODO: Add documentation
 export default class Downloader {
     public url: string;
     public fileName: string;

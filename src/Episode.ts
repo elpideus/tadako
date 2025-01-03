@@ -41,6 +41,7 @@ export default class Episode {
         return $("#download .widget.downloads .widget-body #alternativeDownloadLink").attr("href");
     }
 
+    // TODO: Add documentation
     public download = async (outputDir: string | null = null , fileName: string | null = null, threads: number = 4) => {
         if (!outputDir) outputDir = path.join(os.homedir(), "Downloads");
         if (!fileName) {

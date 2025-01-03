@@ -46,7 +46,7 @@ export default interface SearchFilters {
      * Whether the anime is dubbed. Can be a boolean or a numeric value representing the dubbing status.
      * @type {boolean | number}
      */
-    dubbing?: boolean | number;
+    dub?: boolean | number;
 
     /**
      * The language of the audio for the anime. Can be a specific language or a string.
