@@ -5,6 +5,8 @@ import * as cheerio from "cheerio";
 import DateParser from "./utilities/DateParser";
 import Episode from "./Episode";
 import Tadako from "./Tadako";
+import {MediaType} from "./enums";
+import {ItalianMediaTypeMapping} from "./enums/MediaType.ts";
 
 /**
  * Class representing an Anime object.
@@ -63,7 +65,7 @@ export default class Anime {
      * The category or type of anime (e.g., Anime, Movie, OVA).
      * @type {Genre | null}
      */
-    public category: String | null = null;
+    public category: MediaType | number | null = null;
 
     /**
      * The release date of the anime.
@@ -170,7 +172,7 @@ export default class Anime {
         this.AniListURL = $("#anilist-button")?.attr("href") ?? this.AniListURL;
         this.MyAnimeListURL = $("#mal-button")?.attr("href") ?? this.MyAnimeListURL;
         this.trailer = $("#controls .trailer")?.attr("data-url") ? `https://www.youtube.com/watch?v=${$("#controls .trailer")?.attr("data-url")?.split("/").pop()}` : this.trailer;
-        this.category = $('dt:contains("Categoria:")').next().text().trim().toUpperCase();
+        this.category = ItalianMediaTypeMapping[$('dt:contains("Categoria:")').next().text().trim().toUpperCase()];
         this.releaseDate = DateParser.parseItalianDate($('dt:contains("Data di Uscita:")').next().text().trim());
         this.season = $('dt:contains("Stagione:")').next().find("a").text().trim();
         this.studio = $('dt:contains("Studio:")').next().find("a").text().trim();

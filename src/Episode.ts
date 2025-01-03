@@ -1,6 +1,9 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import Anime from "./Anime.ts";
+import Downloader from "./utilities/Downloader.ts";
+import * as os from "node:os";
+import path from "path"
 
 /**
  * Class representing an episode of an anime.
@@ -38,17 +41,18 @@ export default class Episode {
         return $("#download .widget.downloads .widget-body #alternativeDownloadLink").attr("href");
     }
 
-    // public download = async (path: string, fileName: string | null = null) => {
-    //     const downloader = new Downloader(this.url);
-    //     if (!fileName) {
-    //         const splitDownloadURL = (await this.getDownloadURL())?.split("/");
-    //         if (splitDownloadURL && splitDownloadURL.length > 1) {
-    //             const filename = splitDownloadURL[splitDownloadURL.length - 1];
-    //             await downloader.downloadAnimeMP4(filename, path)
-    //         }
-    //         return
-    //     }
-    //     await downloader.downloadAnimeMP4(fileName, path);
-    // }
+    public download = async (outputDir: string | null = null , fileName: string | null = null, threads: number = 4) => {
+        if (!outputDir) outputDir = path.join(os.homedir(), "Downloads");
+        if (!fileName) {
+            const splitDownloadURL = (await this.getDownloadURL())?.split("/");
+            if (splitDownloadURL && splitDownloadURL.length > 1) {
+                fileName = splitDownloadURL[splitDownloadURL.length - 1];
+                const downloader = new Downloader(await this.getDownloadURL() ?? "", fileName, outputDir);
+                await downloader.downloadFile(threads);
+            }
+            return
+        }
+        await (new Downloader(this.url, fileName, outputDir)).downloadFile(threads);
+    }
 
 }

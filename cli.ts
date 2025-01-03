@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 /**
  * CLI for interacting with the Tadako application to search, select, and play anime episodes.
  *
@@ -190,6 +189,7 @@ const runCLI = async () => {
     }
 
     const getSelected = async () => {
+        // @ts-ignore
         const { results } = await Tadako.search(query, { genre: options.genre || null, season: options.season || null, year: options.year || null, type: options.type || null, studio: options.studio || null, language: options.language || AudioLanguage.ITALIAN, sort: options.sort || Sorting.OLDEST,
         });
 
@@ -296,7 +296,7 @@ const runCLI = async () => {
 
         console.clear();
         // @ts-ignore
-        new Downloader(selected.downloadURL, options.filename ?? null, options["out-dir"] ?? null).downloadFileMultithreaded(options.threads ?? 1)
+        new Downloader(selected.downloadURL, options.filename ?? null, options["out-dir"] ?? null).downloadFile(options.threads ?? 1)
             .then(() => {
                 console.log("File downloaded successfully.");
                 process.exit();

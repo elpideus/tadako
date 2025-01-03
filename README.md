@@ -23,12 +23,93 @@ We love and support [bun](https://bun.sh/) and as such the library is tailored t
 
 Installation via bun:
 ```shell script
-bun install tadako
+bun install -g tadako
 ```
 
 Installation via npm:
 ```shell script
-npm install tadako
+npm install -g tadako
+```
+
+> If you want to use the cli remember to install [mpv](https://mpv.io/) as well on your system. To do that you can use one
+> of the following commands:
+>
+> #### Windows
+> There are many different ways you can install mpv depending on your preferences.
+>
+> [chocolatey](https://chocolatey.org/):
+> ```shell
+> choco install mpvio.install
+> ```
+> 
+> [scoop](https://scoop.sh/):
+> ```shell
+> scoop bucket add extras
+> scoop install extras/mpv
+> ```
+> You can also download the official first-party nightly build by clicking [here](https://nightly.link/mpv-player/mpv/workflows/build/master/mpv-x86_64-windows-msvc.zip).
+>
+> #### Linux
+> 
+> Arch (Manjaro / SteamOS*): 
+> ```shell
+> sudo pacman -S mpv
+> ```
+> 
+> Debian (Ubuntu):
+> ```shell
+> sudo apt update
+> sudo apt install mpv
+> ```
+> 
+> Fedora:
+> ```shell
+> sudo dnf install mpv
+> ```
+> 
+> OpenSuse:
+> ```shell
+> sudo zypper install mpv
+> ```
+> 
+> Gentoo:
+> ```shell
+> sudo emerge media-video/mpv
+> ```
+> 
+> Void Linux
+> ```shell
+> sudo xbps-install -S mpv
+> ```
+>
+> Flatpak*
+> ```shell
+> flatpak install flathub io.mpv.Mpv
+> flatpak run io.mpv.Mpv
+>  ```
+>
+> ###### The * indicates a distro/method that hasn't been tested thoroughly.
+> 
+> #### Mac OS
+> ###### We didn't test any of the following sources and cannot provide support for Mac OS.
+> Mac OS 13 (Intel) -> [Download](https://nightly.link/mpv-player/mpv/workflows/build/master/mpv-macos-13-intel.zip) \
+> Mac OS 14 (Arm) -> [Download](https://nightly.link/mpv-player/mpv/workflows/build/master/mpv-macos-14-arm.zip) \
+> Mac OS 15 (Arm) -> [Download](https://nightly.link/mpv-player/mpv/workflows/build/master/mpv-macos-15-arm.zip)
+
+---
+
+## CLI Usage
+
+### Streaming
+It is possible to watch anime directly through tadako.
+```shell
+tadako "violet evergarden"
+```
+
+### Downloading
+Downloading anime from AnimeWorld has never been as easy.
+```shell
+tadako "violet evergarden" download
 ```
 
 ---
@@ -113,8 +194,6 @@ sources that are helping us in doing so.
 These are things that we still need to implement in no specific order.
 
 - Add support for different download servers
-- Direct download of episodes using the library
-- Streaming of anime using the library (inspired by [ani-cli](https://github.com/pystardust/ani-cli))
 - Create documentation website
 - Finish descriptions of all the studios.
 - Automatic download of platform-specific dependencies (like mpv)

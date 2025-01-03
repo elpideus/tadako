@@ -3,6 +3,7 @@ import * as cheerio from "cheerio";
 import Anime from "./Anime";
 import DateParser from "./utilities/DateParser";
 import type SearchFilters from "./interfaces/SearchFilters.ts";
+import {MediaType} from "./enums";
 
 
 /**
@@ -90,11 +91,18 @@ export default class Tadako {
         const results: Anime[] = [];
         $("#main .content .widget .widget-body .film-list .item").each((_, item) => {
             const $item = $(item);
+            let mediaType: MediaType = MediaType.ANIME;
+            if ($item.find("a.poster .status .movie")) mediaType = MediaType.MOVIE;
+            if ($item.find("a.poster .status .ova")) mediaType = MediaType.OVA;
+            if ($item.find("a.poster .status .ona")) mediaType = MediaType.ONA;
+            if ($item.find("a.poster .status .special")) mediaType = MediaType.SPECIAL;
+            if ($item.find("a.poster .status .music")) mediaType = MediaType.MUSIC;
             results.push(new Anime(
                 `https://${Tadako.domain}${$item.find(".inner a.name").attr("href")}`, {
                     title: $item.find(".inner a.name").text(),
                     poster: $item.find(".inner a.poster img").attr("src"),
-                    alternativeTitle: $item.find(".inner a.name").attr("data-jtitle")
+                    alternativeTitle: $item.find(".inner a.name").attr("data-jtitle"),
+                    category: mediaType
                 }
             ));
         });

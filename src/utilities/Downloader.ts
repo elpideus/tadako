@@ -2,23 +2,21 @@ import * as os from "node:os";
 import path from "node:path";
 import https from "https";
 import fs from "fs";
+import DateParser from "./DateParser.ts";
 
 export default class Downloader {
-
     public url: string;
     public fileName: string;
     public outputDir: string;
 
     constructor(url: string, fileName: string | null = null, outputDir: string | null = null) {
-
         this.url = url;
-        const splitURL = url.split("/")
+        const splitURL = url.split("/");
         this.fileName = fileName ?? splitURL[splitURL.length - 1];
         this.outputDir = outputDir ?? path.join(os.homedir(), "Downloads");
-
     }
 
-    public downloadFileMultithreaded = async (threads: number = 4): Promise<void> => {
+    public downloadFile = async (threads: number = 4): Promise<void> => {
         const getHeaders = () =>
             new Promise((resolve, reject) => {
                 https
@@ -42,8 +40,10 @@ export default class Downloader {
         let speed = 0;
         let lastSpeedUpdate = Date.now();
         const startTime = Date.now();
-        
+
         console.log(`Downloading ${this.fileName} (${threads} ${threads > 1 ? "threads" : "thread"}) ...`);
+
+        let secondsTaken = 0;
 
         const updateProgress = setInterval(() => {
             const percentage = (downloadedSize / totalSize) * 100;
@@ -54,6 +54,9 @@ export default class Downloader {
                 lastSpeedUpdate = Date.now();
             }
 
+            const remainingSize = totalSize - downloadedSize; // bytes
+            const etaSeconds = Math.floor(speed > 0 ? remainingSize / (speed * 1024 * 1024) : 0);
+
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
 
@@ -63,12 +66,10 @@ export default class Downloader {
                     : percentage.toFixed(2);
 
             process.stdout.write(
-                `Downloaded: ${formattedPercentage}% (${(downloadedSize / 1024 / 1024).toFixed(
-                    2
-                )} MB / ${(totalSize / 1024 / 1024).toFixed(2)} MB) - Speed: ${speed.toFixed(
-                    2
-                )} MB/s`
+                `Downloaded: ${formattedPercentage}% (${(downloadedSize / 1024 / 1024).toFixed(2)} MB / ${(totalSize / 1024 / 1024).toFixed(2)} MB) - Speed: ${speed.toFixed(2)} MB/s ETA: ${DateParser.secondsToHumanTime(etaSeconds)}`
             );
+
+            secondsTaken += 1;
         }, 1000);
 
         const downloadChunk = (start: number, end: number, index: number) => {
@@ -110,13 +111,14 @@ export default class Downloader {
         try {
             const chunks = await Promise.all(promises);
             await fs.promises.writeFile(path.join(this.outputDir, this.fileName), Buffer.concat(chunks));
-
             clearInterval(updateProgress);
             console.clear();
+            console.log(
+                `Finished downloading ${this.fileName} (${(totalSize / 1024 / 1024).toFixed(2)} MB) in ${DateParser.secondsToHumanTime(secondsTaken)}.`
+            );
         } catch (err) {
             clearInterval(updateProgress);
             throw err;
         }
     };
-
 }
