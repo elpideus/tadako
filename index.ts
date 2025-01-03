@@ -1,2 +1,2 @@
-export { default } from "./Tadako.ts";
+export { default } from "./src/Tadako.ts";
 export * from "./src/enums";

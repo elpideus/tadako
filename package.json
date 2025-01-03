@@ -2,7 +2,6 @@
   "name": "tadako",
   "version": "1.0.1",
   "description": "An unofficial AnimeWorld API",
-  "keywords": ["anime", "data", "information", "api", "scraping"],
   "author": "Stefan Cucoranu <elpideus@gmail.com>",
   "license": "GPLv3",
   "repository": {
@@ -10,20 +9,41 @@
     "url": "https://github.com/elpideus/tadako.git"
   },
   "main": "index.ts",
-  "type": "module",
+  "type": "commonjs",
+  "keywords": [
+    "anime",
+    "data",
+    "information",
+    "api",
+    "scraping"
+  ],
+  "scripts": {
+    "build": "npx esbuild cli.ts --bundle --outfile=cli.js --platform=node --format=cjs --minify",
+    "reinstall": "npm uninstall -g tadako && npm install -g .",
+    "build_and_reinstall": "npm run build && npm run reinstall"
+  },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "axios": "^1.7.9",
-    "cheerio": "^1.0.0"
+    "cheerio": "^1.0.0",
+    "esbuild": "^0.24.2",
+    "ts-node": "^10.9.2"
   },
   "files": [
     "index.ts",
+    "cli.ts",
     "src",
-    "Tadako.ts",
+    "src/Tadako.ts",
     "LICENSE",
     "tsconfig.json",
     "README.md"
-  ]
+  ],
+  "devDependencies": {
+    "@types/node": "^22.10.4"
+  },
+  "bin": {
+    "tadako": "cli.js"
+  }
 }

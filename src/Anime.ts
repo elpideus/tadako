@@ -1,10 +1,10 @@
-import {type Genre, ItalianGenreMapping} from "./enums/Genre.ts";
-import {ItalianStatusMapping, Status} from "./enums/Status.ts";
+import {type Genre, ItalianGenreMapping} from "./enums/Genre";
+import {ItalianStatusMapping, Status} from "./enums/Status";
 import axios from "axios";
 import * as cheerio from "cheerio";
-import DateParser from "./utilities/DateParser.ts";
-import Episode from "./Episode.ts";
-import Tadako from "../Tadako.ts";
+import DateParser from "./utilities/DateParser";
+import Episode from "./Episode";
+import Tadako from "./Tadako";
 
 /**
  * Class representing an Anime object.
@@ -177,8 +177,10 @@ export default class Anime {
         $('dt:contains("Genere:")').next().find("a").each((i, el) => {this.genres.push(ItalianGenreMapping[$(el).text().trim().toUpperCase()])});
         this.rating = parseFloat($('dt:contains("Voto:")').next().find('.rating span').text().trim());
         this.duration = $('dt:contains("Durata:")').next().text().trim();
-        $("#animeId .widget-body .server.active .episodes.range.active .episode").each((index, episode) => {
-            this.episodes.push(new Episode(`https://${Tadako.domain}${$(episode).find("a").attr("href")}`))
+        $("#animeId .widget-body .server.active .episodes.range").each((index, range) => {
+            $(range).find("li.episode").each((index, episode) => {
+                this.episodes.push(new Episode(`https://${Tadako.domain}${$(episode).find("a").attr("href")}`))
+            });
         });
         this.status = ItalianStatusMapping[$('dt:contains("Stato:")').next().find("a").text().trim().toUpperCase()]
         this.views = parseInt($('dt:contains("Visualizzazioni:")').next().text().trim());

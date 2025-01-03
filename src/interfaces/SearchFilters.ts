@@ -28,7 +28,7 @@ export default interface SearchFilters {
      * The type of media for the anime (e.g., Anime, Movie, OVA). Can be a specific media type or a numeric ID.
      * @type {MediaType | number}
      */
-    mediaType?: MediaType | number;
+    type?: MediaType | number;
 
     /**
      * The current status of the anime (e.g., ongoing, completed). Can be a specific status or a numeric ID.
@@ -52,13 +52,13 @@ export default interface SearchFilters {
      * The language of the audio for the anime. Can be a specific language or a string.
      * @type {AudioLanguage | string}
      */
-    audioLanguage?: AudioLanguage | string;
+    language?: AudioLanguage | string;
 
     /**
      * The sorting order for the search results. Can be a specific sorting type or a numeric ID.
      * @type {Sorting | number}
      */
-    sorting?: Sorting | number;
+    sort?: Sorting | number;
 
     /**
      * The page number for pagination. Specifies which page of search results to retrieve.

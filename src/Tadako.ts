@@ -1,8 +1,9 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import Anime from "./src/Anime.ts";
-import DateParser from "./src/utilities/DateParser.ts";
-import type SearchFilters from "./src/interfaces/SearchFilters.ts";
+import Anime from "./Anime";
+import DateParser from "./utilities/DateParser";
+import type SearchFilters from "./interfaces/SearchFilters.ts";
+
 
 /**
  * Main class of the Tadako API. Provides most of the useful functions of the library, like list and search.
