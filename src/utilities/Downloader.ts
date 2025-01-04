@@ -17,7 +17,7 @@ export default class Downloader {
         this.outputDir = outputDir ?? path.join(os.homedir(), "Downloads");
     }
 
-    public downloadFile = async (threads: number = 4): Promise<void> => {
+    public downloadFile = async (threads: number = Math.ceil((os.cpus().length / 2))): Promise<void> => {
         const getHeaders = () =>
             new Promise((resolve, reject) => {
                 https

@@ -9,7 +9,7 @@ export enum MediaType {
     MUSIC = 5
 }
 
-export const ItalianMediaTypeMapping: Record<string, MediaType> = {
+export const MediaTypeMapping: Record<string, MediaType> = {
     "ANIME": MediaType.ANIME,
     "MOVIE": MediaType.MOVIE,
     "OVA": MediaType.OVA,

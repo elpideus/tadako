@@ -42,7 +42,7 @@ export default class Episode {
     }
 
     // TODO: Add documentation
-    public download = async (outputDir: string | null = null , fileName: string | null = null, threads: number = 4) => {
+    public download = async (outputDir: string | null = null , fileName: string | null = null, threads: number = Math.ceil(os.cpus().length / 2)) => {
         if (!outputDir) outputDir = path.join(os.homedir(), "Downloads");
         if (!fileName) {
             const splitDownloadURL = (await this.getDownloadURL())?.split("/");

@@ -92,3 +92,5 @@ export const ItalianGenreMapping: Record<string, Genre> = {
     "YAOI": Genre.YAOI,
     "YURI": Genre.YURI
 }
+
+// TODO: Add Genre mapping for english
