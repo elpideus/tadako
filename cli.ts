@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 // TODO: Finish documentation
+// TODO: Refactor code to reorganize
 /**
  * CLI for interacting with the Tadako application to search, select, and play anime episodes.
  *
@@ -17,6 +18,8 @@ import * as os from "node:os";
 import {MediaTypeMapping} from "./src/enums/MediaType.ts";
 import {SortingMapping} from "./src/enums/Sorting.ts";
 import {ItalianStatusMapping, StatusMapping} from "./src/enums/Status.ts";
+import DateParser from "./src/utilities/DateParser.ts";
+import type Episode from "./src/Episode.ts";
 
 const shortFlagMap = {
     h: "help",
@@ -109,7 +112,8 @@ const runCLI = async () => {
             "--sort": { info: "Defines the sorting for the anime search filters", example: "--sort oldest" },
             "--threads": { info: "Number of threads to use for download", example: "--threads 8" },
             "--out-dir": { info: "The directory where the file(s) will be downloaded", example: "--out-dir \"C:/Users/Your Name/Desktop\"" },
-            "--filename": { info: "Name of the file containing the downloaded anime video (must contain extension)", example: "--filename \"High School DxD - Episode 6.mp4\"" }
+            "--filename": { info: "Name of the file containing the downloaded anime video (must contain extension)", example: "--filename \"High School DxD - Episode 6.mp4\"" },
+            "--all": { info: "Selects all of the anime's episodes for watching or downloading. Useful for watching multiple episodes without interruption." }
         };
 
         Object.keys(flags).forEach(longFlag => {
@@ -316,7 +320,9 @@ const runCLI = async () => {
 
         let selectedEpisode;
         // @ts-ignore
-        if (!options.episode) {
+        if (options.all) selectedEpisode = selectedAnime.episodes[0];
+        // @ts-ignore
+        else if (!options.episode) {
             if (selectedAnime.episodes.length > 1) selectedEpisode = await selectEpisode(selectedAnime.episodes);
             else selectedEpisode = selectedAnime.episodes[0];
             // @ts-ignore
@@ -362,28 +368,50 @@ const runCLI = async () => {
         }
 
         console.clear();
-        const episodeNumber = selected.selectedAnime.episodes.indexOf(selected.selectedEpisode) + 1;
-        // @ts-ignore
-        console.log(`"${selected.selectedAnime.title}" episode ${episodeNumber} is now playing via ${options["mpv-dir"] ?? "mpv"}\`...`);
+
+        const playEpisode = async (episodeURL: string, holdCLI: boolean = false, args: [] = []) => {
+            if (holdCLI) {
+                return new Promise<void>((resolve, reject) => {
+                    // @ts-ignore
+                    exec(`${options["mpv-dir"] ? path.join(options["mpv-dir"], "mpv") : "mpv"} "${episodeURL}" ${options.fullscreen ? "--fullscreen" : ""}`, (err) => {
+                        if (err) {
+                            console.error("Error executing MPV:", err);
+                            reject(err);
+                        } else {
+                            resolve();
+                        }
+                    });
+                });
+            } else {
+                const args = [episodeURL];
+                // @ts-ignore
+                if (options.fullscreen) args.push('--fullscreen');
+                // @ts-ignore
+                const mpvProcess = spawn(options["mpv-dir"] ? path.join(options["mpv-dir"], "mpv") : "mpv", args, { detached: true, stdio: 'ignore'});
+                // @ts-ignore
+                mpvProcess.unref();
+            }
+        };
 
         // @ts-ignore
-        if (options["hold-cli"]) {
+        if (options["hold-cli"] || options.all) {
             // @ts-ignore
-            exec(`${options["mpv-dir"] ? path.join(options["mpv-dir"], "mpv") : "mpv"} "${selected.downloadURL}"`, (err) => {
-                if (err) {
-                    console.error("Error executing MPV:", err);
-                    return;
+            if (options.all) {
+                // @ts-ignore
+                let currentEpisodeIndex = options.episode ? options.episode - 1 : 0;
+                // @ts-ignore
+                for (const episode of selected.selectedAnime.episodes.slice(options.episode ? options.episode - 1 : 0, selected.selectedAnime.episodes.length - 1)) {
+                    console.clear();
+                    // @ts-ignore
+                    console.log(`"${selected.selectedAnime.title}" episode ${++currentEpisodeIndex} is now playing via ${options["mpv-dir"] ?? "mpv"}\`...`);
+                    const episodeURL = await episode.getDownloadURL();
+                    if (episodeURL) await playEpisode(episodeURL, true);
                 }
-            });
-        } else {
-            // @ts-ignore
-            const mpvProcess = spawn(options["mpv-dir"] ? path.join(options["mpv-dir"], "mpv") : "mpv", [selected.downloadURL], {
-                detached: true,
-                stdio: 'ignore',
-            });
-
-            mpvProcess.unref();
-        }
+            } else {
+                // @ts-ignore
+                await playEpisode(selected.downloadURL, true);
+            }
+        } else await playEpisode(selected.downloadURL);
     }
 
 
@@ -391,22 +419,46 @@ const runCLI = async () => {
         const selected = await getSelected();
         console.clear();
 
+        const downloadEpisode = (episodeURL: string, clearConsoleOnNewDownload: boolean = true) => {
+            // @ts-ignore
+            return new Downloader(episodeURL, options.filename ?? null, options["out-dir"] ?? null).downloadFile(options.threads ?? Math.ceil(os.cpus().length / 2), clearConsoleOnNewDownload);
+        }
+
         // @ts-ignore
-        new Downloader(selected.downloadURL, options.filename ?? null, options["out-dir"] ?? null).downloadFile(options.threads ?? Math.ceil(os.cpus().length / 2))
-            .then(() => {
-                console.log("File downloaded successfully.");
-                process.exit();
-            })
-            .catch((err) => {
-                console.error("Error downloading file:", err);
-                process.exit();
-            });
+        if (options.all) {
+            const startTime = Date.now();
+
+            const selectedAnime = selected.selectedAnime;
+            let episodes: Episode[] = selectedAnime.episodes;
+            // @ts-ignore
+            if (options.episode) episodes = selectedAnime.episodes.slice(options.episode - 1, selectedAnime.episodes.length - 1);
+            for (const episode of episodes) {
+                const downloadURL = await episode.getDownloadURL();
+                if (downloadURL) {
+                    await downloadEpisode(downloadURL, false);
+                }
+            }
+
+            const endTime = Date.now();
+            const totalSeconds = Math.ceil((endTime - startTime) / 1000);
+            const humanReadableTime = DateParser.secondsToHumanTime(totalSeconds);
+
+            console.clear();
+            // @ts-ignore
+            console.log(`Downloaded ${episodes.length} (${options.episode ?? 1} -> ${selectedAnime.episodes.length}) episodes of ${selectedAnime.title} in ${humanReadableTime}.`);
+        }
+
+        process.exit();
     } else {
         console.log("Invalid command or missing arguments");
         process.exit(1);
     }
 };
 
+process.on('SIGINT', () => {
+    console.log('Ctrl+C detected. Exiting...');
+    process.exit(0);
+});
 
 if (require.main === module) {
     runCLI().catch((err) => {

@@ -4,6 +4,7 @@ import Anime from "./Anime";
 import DateParser from "./utilities/DateParser";
 import type SearchFilters from "./interfaces/SearchFilters.ts";
 import {MediaType} from "./enums";
+import fs from "fs";
 
 
 /**

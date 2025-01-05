@@ -17,7 +17,7 @@ export default class Downloader {
         this.outputDir = outputDir ?? path.join(os.homedir(), "Downloads");
     }
 
-    public downloadFile = async (threads: number = Math.ceil((os.cpus().length / 2))): Promise<void> => {
+    public downloadFile = async (threads: number = Math.ceil((os.cpus().length / 2)), clearConsoleOnNewDownload: boolean = true): Promise<void> => {
         const getHeaders = () =>
             new Promise((resolve, reject) => {
                 https
@@ -51,7 +51,7 @@ export default class Downloader {
             const elapsedSeconds = (Date.now() - startTime) / 1000;
 
             if (Date.now() - lastSpeedUpdate >= 5000) {
-                speed = downloadedSize / 1024 / 1024 / elapsedSeconds; // MB/s
+                speed = downloadedSize / 1024 / 1024 / elapsedSeconds;
                 lastSpeedUpdate = Date.now();
             }
 
@@ -66,9 +66,7 @@ export default class Downloader {
                     ? Math.floor(percentage)
                     : percentage.toFixed(2);
 
-            process.stdout.write(
-                `Downloaded: ${formattedPercentage}% (${(downloadedSize / 1024 / 1024).toFixed(2)} MB / ${(totalSize / 1024 / 1024).toFixed(2)} MB) - Speed: ${speed.toFixed(2)} MB/s ETA: ${DateParser.secondsToHumanTime(etaSeconds)}`
-            );
+            process.stdout.write(`Downloaded: ${formattedPercentage}% (${(downloadedSize / 1024 / 1024).toFixed(2)} MB / ${(totalSize / 1024 / 1024).toFixed(2)} MB) - Speed: ${speed.toFixed(2)} MB/s ETA: ${DateParser.secondsToHumanTime(etaSeconds)}`);
 
             secondsTaken += 1;
         }, 1000);
@@ -113,10 +111,15 @@ export default class Downloader {
             const chunks = await Promise.all(promises);
             await fs.promises.writeFile(path.join(this.outputDir, this.fileName), Buffer.concat(chunks));
             clearInterval(updateProgress);
-            console.clear();
-            console.log(
-                `Finished downloading ${this.fileName} (${(totalSize / 1024 / 1024).toFixed(2)} MB) in ${DateParser.secondsToHumanTime(secondsTaken)}.`
-            );
+            const updateString = `Finished downloading ${this.fileName} (${(totalSize / 1024 / 1024).toFixed(2)} MB) in ${DateParser.secondsToHumanTime(secondsTaken)}.\n`;
+            if (clearConsoleOnNewDownload) {
+                console.clear();
+                console.log(updateString)
+            } else {
+                process.stdout.clearLine(0);
+                process.stdout.cursorTo(0);
+                process.stdout.write(updateString);
+            }
         } catch (err) {
             clearInterval(updateProgress);
             throw err;
