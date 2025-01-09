@@ -13,12 +13,12 @@ export enum Studio {
     UNKNOWN = "Sconosciuto",
 
     /**
-     * Shiyong Wang founded [2:10 Animation](https://en.2-10.cn/) as a small studio in 2007, Wuhan, China. After dedicating to Chinese
-     * animation for 16 years, the company now has more than 500 employees offering a package service of cartoon IP
-     * production and operation. Their services include 6 complete and independent industrial chain modules including
-     * animation project planning, script creation, animation production, R&D, publicity and distribution, and
-     * commercial operation. They maintain strategic cooperation with leading companies of film and television, video,
-     * novel, game, and consumer goods industries, etc.
+     * Shiyong Wang founded [2:10 Animation](https://en.2-10.cn/) as a small studio in 2007, Wuhan, China. After
+     * dedicating to Chinese animation for 16 years, the company now has more than 500 employees offering a package
+     * service of cartoon IP production and operation. Their services include 6 complete and independent industrial
+     * chain modules including animation project planning, script creation, animation production, R&D, publicity and
+     * distribution, and commercial operation. They maintain strategic cooperation with leading companies of film and
+     * television, video, novel, game, and consumer goods industries, etc.
      *
      * Their works are of multiple categories. It has more than ten high-quality original popular IPs such as
      * "The Silver Guardian", "I am Joybo", "The Great Warrior Wall", "Glaze War" and "The Country of Rare Treasures".
@@ -71,6 +71,8 @@ export enum Studio {
      *
      * On April 1, 2024, Eight Bit became a wholly owned subsidiary of Bandai Namco Filmworks.
      *
+     * ---
+     *
      * According to [AniDB](https://anidb.net) on [this page](https://anidb.net/creator/21883) and
      * [MyAnimeList](https://myanimelist.net/) on [this page](https://myanimelist.net/anime/producer/441/8bit):
      *
@@ -87,11 +89,151 @@ export enum Studio {
      */
     EIGHT_BIT = "8bit",
 
+    /**
+     * According to [Wikipedia](https://wikipedia.org) in [this article](https://en.wikipedia.org/wiki/A-1_Pictures):
+     *
+     * A-1 Pictures Inc. (Japanese: 株式会社エー・ワン・ピクチャーズ, Hepburn: Kabushiki-gaisha Ē Wan Pikuchāzu) is a Japanese
+     * animation studio founded on May 9, 2005, by Mikihiro Iwata and is a subsidiary of Aniplex, a Sony Music
+     * Entertainment Japan company. The studio is headquartered in Suginami, Tokyo, Japan.
+     *
+     * A-1 Pictures was established with the aim of creating a flexible production system to produce high-quality
+     * animation. It has since grown into one of the leading animation studios in Japan, producing a wide variety of
+     * works ranging from television series to feature films.
+     *
+     * Notable works include "Sword Art Online," "Anohana: The Flower We Saw That Day," "Your Lie in April," and "Blue
+     * Exorcist." The studio is also known for its involvement in collaborative projects and partnerships with other
+     * production companies and creators.
+     *
+     * In 2018, A-1 Pictures restructured its operations, forming CloverWorks as a subsidiary studio to focus on
+     * specific projects, while A-1 Pictures continued to handle major productions.
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/56/A-1_Pictures):
+     *
+     * A-1 Pictures (A-1 Pictures Inc.) is a Japanese animation studio in Suginami, Tokyo. Founded by former Sunrise
+     * producer Mikihiro Iwata in 2005, it was established as a subsidiary of Aniplex. The studio was meant to oversee
+     * Aniplex's family-oriented series before it evolved into producing various independent anime projects.
+     *
+     * A-1 Pictures has since released popular television anime such as Fairy Tail, Sword Art Online, Nanatsu no Taizai
+     * (The Seven Deadly Sins), and Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen (Kaguya-Sama: Love is
+     * War).
+     *
+     * @link [Official Website](https://a1p.jp/)
+     */
     A1_PICTURES= "A-1 Pictures",
+
+    /**
+     * We didn't find much about this studio.
+     *
+     * According to [this Japanese Wikipedia Article](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%BC%E3%83%BB%E3%83%A9%E3%82%A4%E3%83%B3)
+     * it seems to have collaborated in the production of popular anime series like "kiss×sis", "Inazuma Eleven GO
+     * Chrono Stone", "Inazuma Eleven GO Galaxy", "Jojo's Bizarre Adventure Stardust Crusaders", "Seven deadly sins", "
+     * Macross Δ" and "Fate/Apocrypha".
+     *
+     * ---
+     *
+     * At the moment of writing this short description the website seems to be unavailable, reporting a Forbidden error,
+     * specifying "You don't have permission to access this resource".
+     *
+     * @link [Official Website](http://a-line.tokyo/)
+     *
+     */
     A_LINE = "A-Line",
+
+    /**
+     * Unfortunately we couldn't find any info at all regarding this studio, but just some of their works. They seem to
+     * have at least collaborated with other studios in the making of the following 7 titles, according to [this
+     * MyAnimeList page](https://myanimelist.net/anime/producer/1257/A-Real):
+     * - Kenka Banchou Otome: Girl Beats Boys
+     * - Dekoboko Majo no Oyako Jijou (The Family Circumstances of the Irregular Witch)
+     * - Iya na Kao sare nagara Opantsu Misete Moraitai 2 (I Want You To Show Me Your Panties With a Disgusted Face 2)
+     * - Urawa no Usagi-chan
+     * - Musashino!
+     * - Urawa no Usagi-chan: Natsu no Hi to, Bushitsu to, Tomodachi to
+     * - Hana-Doll*: Reinterpretation of Flowering
+     */
     A_REAL = "A-Real",
+
+    /**
+     * According to [Wikipedia](https://en.wikipedia.org) in [this article](https://en.wikipedia.org/wiki/A.C.G.T):
+     *
+     * A.C.G.T Inc. (Japanese: 株式会社エー・シー・ジー・ティー, Hepburn: Kabushiki-gaisha Ē shī jī tī, stylized as A・C・G・T)
+     * is a Japanese animation studio established on December 19, 2000, by former Triangle Staff members in Suginami,
+     * Tokyo. It has been involved in the development of many series, predominantly contributing to other studios and
+     * adapting works based on light novels and manga. It is a subsidiary of OB Planning, which handles executive
+     * production on many of its series. A.C.G.T also works regularly with production company Genco, which at times
+     * provides executive production while A.C.G.T completes animation production. In 2006, the studio's headquarters
+     * was moved from Suginami to Nerima.
+     *
+     * They have worked on titles like "Initial D Fourth Stage" and "Dies Irae".
+     *
+     * @link [Official Website](http://acgt.co.jp/)
+     */
     A_C_G_T = "A.C.G.T.",
+
+    /**
+     * According to [Wikipedia](https://en.wikipedia.org) in [this article](https://en.wikipedia.org/wiki/A24):
+     *
+     * A24 Films LLC, commonly referred to as A24, is an American independent entertainment company that specializes in
+     * film and television production, as well as film distribution. The company is based in Manhattan.
+     *
+     * The company was founded in 2012 by Daniel Katz, David Fenkel, and John Hodges. Prior to A24, all had worked
+     * extensively in film and production before leaving their positions to co-found the company, originally A24 Films,
+     * which specialized in film distribution. Starting off in 2013 with A Glimpse Inside the Mind of Charles Swan III,
+     * the company's growth started with the release of Spring Breakers later that year. In 2014, A24 picked up the U.S.
+     * rights to Ex Machina and Room in 2015, before obtaining worldwide rights to The Witch, which was released
+     * theatrically in 2015. They entered into deals with Amazon Prime Video, and DirecTV Cinema in late 2013, with some
+     * films distributed through them, and the name was changed to just A24 in 2016. In 2022, A24 produced the film
+     * Everything Everywhere All at Once, which won the Academy Award for Best Picture and six more Oscars; the film has
+     * also received acclaim from both audiences and critics, it is their first film to reach $100
+     * million at the box office.
+     *
+     * A24's television division has produced numerous programs, including At Home with Amy Sedaris (2017–2020), Beef
+     * (2023), The Carmichael Show (2015–2017), Euphoria (2019–present), Hazbin Hotel (2024–present), I'm Sorry
+     * (2017–2019), Irma Vep (2022), Mo (2022–present), Mr. Corman (2021), Ramy (2019–2022), and Ziwe (2021–2022).
+     *
+     * The company has also frequently worked with artistically minded writer-directors, including Ari Aster, Robert
+     * Eggers, Darren Aronofsky, Sean Baker, the Daniels, Danny and Michael Philippou, Alex Garland, Scott Beck, Bryan
+     * Woods, Rose Glass, Celine Song, Joanna Hogg, Yorgos Lanthimos, Sean Durkin, Kristoffer Borgli, David Lowery,
+     * Halina Reijn, Mike Mills, and the Safdie brothers.
+     *
+     * A24 has developed a reputation as a powerhouse in independent film with a passionate fanbase. Its projects have
+     * also had a major influence on style in contemporary horror and arthouse films, among other areas. A24 is also
+     * known for the originality and artistic style of films it produces, generally shunning the style of films produced
+     * or released by the major film studios.
+     *
+     * @link [Official Website](https://a24films.com/)
+     */
     A24 = "A24",
+
+    /**
+     * According to [Wikipedia](https://en.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/ABC_Animation):
+     *
+     * ABC Animation, Inc. is a Japanese animation planning, production and content company that serves as a subsidiary
+     * of the Asahi Broadcasting Group Holdings Corporation. Based in Shinjuku, Tokyo, the company was formed as part of
+     * a spin-off of ABC's animation co-production business into a separate company, as part of a major restructuring of
+     * ABC's restructuring of its content production division. ABC Animation also owns animation studio Silver Link as
+     * well as other companies such as Zero G Act and CGCG Studio. The company is responsible for the planning and
+     * production of anime, including films and television series as well as content sales and licensing. Among these is
+     * Toei Animation's long-running magical girl series Pretty Cure which has been airing since 2004. Since the shows
+     * air on a daytime slot, all entries from 2016 onwards are co-produced jointly with ABC Television, which previously
+     * solely handled co-production duties from the franchise's first entry in 2004. ABC-A began co-producing the series
+     * since "Witchy Pretty Cure".
+     *
+     * ---
+     *
+     * This studio worked on really popular titles like "Koe no Katachi (A Silent Voice)", "Violet Evergarden", "Seishun
+     * Buta Yarou wa Bunny Girl Senpai no Yume wo Minai (Rascal Does Not Dream of Bunny Girl Senpai)", "Darling in the
+     * FranXX", "Kobayashi-san Chi no Maid Dragon (Miss Kobayashi's Dragon Maid)", "Kimi no Suizou wo Tabetai (I Want To
+     * Eat Your Pancreas)", "Orange", "Itai no wa Iya nanode Bougyoryoku ni Kyokufuri Shitai to Omoimasu. (BOFURI: I
+     * Don't Want to Get Hurt, so I'll Max Out My Defense.)", "Uzaki-chan wa Asobitai! (Uzaki-chan Wants to Hang Out!)"
+     * and "Free! Dive to the Future".
+     *
+     * @link [Official Website](https://www.abc-anime.co.jp/)
+     */
     ABC_ANIMATION = "ABC Animation",
     ABJ_COMPANY = "ABJ COMPANY",
     ACCA_EFFE = "Acca effe",
