@@ -1,11 +1,10 @@
-import axios from "axios";
+import puppeteer, { Browser, Page, HTTPRequest } from "puppeteer";
 import * as cheerio from "cheerio";
 import Anime from "./Anime";
 import DateParser from "./utilities/DateParser";
-import type SearchFilters from "./interfaces/SearchFilters.ts";
+import type SearchFilters from "./interfaces/SearchFilters";
 import {MediaType} from "./enums";
-import fs from "fs";
-
+import type {CheerioAPI} from "cheerio";
 
 /**
  * Main class of the Tadako API. Provides most of the useful functions of the library, like list and search.
@@ -30,6 +29,32 @@ export default class Tadako {
     };
 
     /**
+     * Simple HTML parser utility using cheerio.
+     *
+     * @param {string} url The url to parse from.
+     * @returns {Promise<CheerioAPI>} - A promise that resolves to a cheerio object.
+     */
+    static async parse(url: string): Promise<CheerioAPI> {
+        const browser: Browser = await puppeteer.launch({headless: "shell", args: ["--no-sandbox", "--disable-setuid-sandbox"]});
+        const page: Page = await browser.newPage();
+        await page.setRequestInterception(true);
+
+        page.on("request", async (req: HTTPRequest) => {
+            const resourceType = req.resourceType();
+            if (["image", "stylesheet", "font", "media", "script"].includes(resourceType)) {
+                await req.abort();
+            } else {
+                await req.continue();
+            }
+        });
+
+        await page.goto(url, { waitUntil: "domcontentloaded" });
+        const html = await page.content();
+        await browser.close();
+        return cheerio.load(html);
+    }
+
+    /**
      * Fetches a list of anime from [AnimeWorld](https://animeworld.so).
      *
      * Allows Filtering and pagination.
@@ -45,10 +70,7 @@ export default class Tadako {
      * @returns {Anime[]} items - The list of anime retrieved from the page.
      */
     static async list(page: number = 1, section: string | null = null): Promise<{page: number, maxPages: number, results: Anime[]}> {
-        const url = `https://${Tadako.domain}/${Tadako.routes.list}${section ? "/" + section.toUpperCase() : ""}?page=${page}`;
-        const { data } = await axios.get(url);
-        const $ = cheerio.load(data);
-
+        const $ = await Tadako.parse(`https://${this.domain}/${this.routes.list}`);
         const maxPages = parseInt($("#main .content .widget.az-list .widget-body div .paging-wrapper #paging-form .total").text()) || 1;
 
         const results: Anime[] = [];
@@ -85,9 +107,7 @@ export default class Tadako {
      * @returns {SearchFilters} filters - The filters that were used in the search.
      */
     static async search(query: string = "", filters: SearchFilters = {}): Promise<{page: number, maxPages: number, results: Anime[], filters: SearchFilters}> {
-        const url = `https://${Tadako.domain}/${Tadako.routes.search}`;
-        const { data } = await axios.get(url, { params: { keyword: query, ...filters } });
-        const $ = cheerio.load(data);
+        const $ = await Tadako.parse(`https://${this.domain}/${this.routes.search}?keyword=${query}`);
 
         const results: Anime[] = [];
         $("#main .content .widget .widget-body .film-list .item").each((_, item) => {

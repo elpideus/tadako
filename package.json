@@ -1,6 +1,6 @@
 {
   "name": "tadako",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "An unofficial AnimeWorld API",
   "author": "Stefan Cucoranu <elpideus@gmail.com>",
   "license": "GPLv3",
@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/elpideus/tadako.git"
   },
-  "main": "index.ts",
+  "main": "index.js",
   "type": "commonjs",
   "keywords": [
     "anime",
@@ -26,9 +26,9 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "axios": "^1.7.9",
     "cheerio": "^1.0.0",
-    "esbuild": "^0.24.2"
+    "esbuild": "^0.24.2",
+    "puppeteer": "^24.1.1"
   },
   "files": [
     "index.ts",
@@ -41,7 +41,8 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/node": "^22.10.4"
+    "@types/node": "^22.10.4",
+    "typescript": "^5.7.3"
   },
   "bin": {
     "tadako": "cli.js"

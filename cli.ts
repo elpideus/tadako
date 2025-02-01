@@ -11,14 +11,14 @@
 import Tadako from "./src/Tadako";
 import {AudioLanguage, ItalianGenreMapping, Sorting} from "./src/enums";
 import {exec, execSync, spawn} from "node:child_process";
-import readline from "readline";
-import path from "node:path";
-import Downloader from "./src/utilities/Downloader.ts";
+import * as readline from "readline";
+import * as path from "node:path";
+import Downloader from "./src/utilities/Downloader";
 import * as os from "node:os";
-import {MediaTypeMapping} from "./src/enums/MediaType.ts";
-import {SortingMapping} from "./src/enums/Sorting.ts";
-import {ItalianStatusMapping, StatusMapping} from "./src/enums/Status.ts";
-import DateParser from "./src/utilities/DateParser.ts";
+import {MediaTypeMapping} from "./src/enums/MediaType";
+import {SortingMapping} from "./src/enums/Sorting";
+import {ItalianStatusMapping, StatusMapping} from "./src/enums/Status";
+import DateParser from "./src/utilities/DateParser";
 import type Episode from "./src/Episode.ts";
 
 const shortFlagMap = {

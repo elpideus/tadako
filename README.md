@@ -18,7 +18,7 @@ Tadako is still under development and as such expect changes and relatively freq
 ---
 
 ## Installation
-This library depends on [axios](https://github.com/axios/axios) and [cheerio](https://github.com/cheeriojs/cheerio).\
+This library depends on [puppeteer](https://github.com/puppeteer/puppeteer/) and [cheerio](https://github.com/cheeriojs/cheerio).\
 We love and support [bun](https://bun.sh/) and as such the library is tailored to work perfectly with it.
 
 Installation via bun:

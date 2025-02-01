@@ -1,2 +1,5 @@
-export { default } from "./src/Tadako.ts";
-export * from "./src/enums";
+import Tadako from "./src/Tadako";
+
+Tadako.search("violet").then(r => r.results[0].init().then(r => {
+    r.episodes[0].getDownloadURL().then(e => console.log(e));
+}));

@@ -1,12 +1,9 @@
-import {type Genre, ItalianGenreMapping} from "./enums/Genre";
-import {ItalianStatusMapping, Status} from "./enums/Status";
-import axios from "axios";
-import * as cheerio from "cheerio";
+import {MediaType, MediaTypeMapping} from "./enums/MediaType";
+import {Genre, ItalianGenreMapping, Status} from "./enums";
+import Tadako from "./Tadako";
+import {ItalianStatusMapping} from "./enums/Status";
 import DateParser from "./utilities/DateParser";
 import Episode from "./Episode";
-import Tadako from "./Tadako";
-import {MediaType} from "./enums";
-import {MediaTypeMapping} from "./enums/MediaType.ts";
 
 /**
  * Class representing an Anime object.
@@ -14,7 +11,6 @@ import {MediaTypeMapping} from "./enums/MediaType.ts";
  * [AnimeWorld website](https://animeworld.so).
  */
 export default class Anime {
-
     /**
      * The URL of the anime's page on [AnimeWorld](https://animeworld.so).
      * @type {string}
@@ -163,8 +159,7 @@ export default class Anime {
      * @returns {Promise<Anime>} - A promise that resolves to the current instance of the Anime class with initialized data.
      */
     public init = async (): Promise<Anime> => {
-        const { data } = await axios.get(this.url);
-        const $ = cheerio.load(data);
+        const $ = await Tadako.parse(this.url);
 
         this.title = $("#anime-title").text();
         this.alternativeTitle = $("#anime-title").attr("data-jtitle") ?? this.alternativeTitle;
@@ -187,7 +182,6 @@ export default class Anime {
         this.status = ItalianStatusMapping[$('dt:contains("Stato:")').next().find("a").text().trim().toUpperCase()]
         this.views = parseInt($('dt:contains("Visualizzazioni:")').next().text().trim());
         this.keywords = $("#tagsReload").text();
-
         return this;
     }
 }

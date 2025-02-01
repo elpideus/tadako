@@ -1,15 +1,13 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
-import Anime from "./Anime.ts";
-import Downloader from "./utilities/Downloader.ts";
+import Anime from "./Anime";
+import Tadako from "./Tadako";
 import * as os from "node:os";
-import path from "path"
+import Downloader from "./utilities/Downloader";
+import * as path from "node:path";
 
 /**
  * Class representing an episode of an anime.
  */
 export default class Episode {
-
     /**
      * The URL of the episode page.
      * @type {string}
@@ -28,15 +26,8 @@ export default class Episode {
         this.anime = anime;
     }
 
-    /**
-     * Retrieves the alternative download URL for the episode from the page.
-     * It scrapes the episode's page and extracts the download link.
-     *
-     * @returns {Promise<string | undefined>} - A promise that resolves to the download URL as a string, or undefined if no download URL is found.
-     */
     public getDownloadURL = async (): Promise<string | undefined> => {
-        const { data } = await axios.get(this.url);
-        const $ = cheerio.load(data);
+        const $ = await Tadako.parse(this.url);
 
         return $("#download .widget.downloads .widget-body #alternativeDownloadLink").attr("href");
     }
@@ -55,5 +46,4 @@ export default class Episode {
         }
         await (new Downloader(this.url, fileName, outputDir)).downloadFile(threads);
     }
-
 }
