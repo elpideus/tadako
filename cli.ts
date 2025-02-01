@@ -416,6 +416,7 @@ const runCLI = async () => {
 
 
     else if (command === "download") {
+
         const selected = await getSelected();
         console.clear();
 
@@ -446,6 +447,25 @@ const runCLI = async () => {
             console.clear();
             // @ts-ignore
             console.log(`Downloaded ${episodes.length} (${options.episode ?? 1} -> ${selectedAnime.episodes.length}) episodes of ${selectedAnime.title} in ${humanReadableTime}.`);
+        } else {
+            const startTime = Date.now();
+
+            const selectedAnime = selected.selectedAnime;
+            let episode: Episode = selected.selectedEpisode;
+            // @ts-ignore
+            if (options.episode) episode = selectedAnime.episodes[episode];
+                const downloadURL = await episode.getDownloadURL();
+                if (downloadURL) {
+                    await downloadEpisode(downloadURL, false);
+                }
+
+            const endTime = Date.now();
+            const totalSeconds = Math.ceil((endTime - startTime) / 1000);
+            const humanReadableTime = DateParser.secondsToHumanTime(totalSeconds);
+
+            console.clear();
+            // @ts-ignore
+            console.log(`Downloaded 1 episode from ${selectedAnime.title} in ${humanReadableTime}.`);
         }
 
         process.exit();

@@ -3,6 +3,7 @@ import path from "node:path";
 import https from "https";
 import fs from "fs";
 import DateParser from "./DateParser.ts";
+import {exec} from "node:child_process";
 
 // TODO: Add documentation
 export default class Downloader {
@@ -18,6 +19,7 @@ export default class Downloader {
     }
 
     public downloadFile = async (threads: number = Math.ceil((os.cpus().length / 2)), clearConsoleOnNewDownload: boolean = true): Promise<void> => {
+
         const getHeaders = () =>
             new Promise((resolve, reject) => {
                 https

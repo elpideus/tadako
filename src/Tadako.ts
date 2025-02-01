@@ -41,14 +41,12 @@ export default class Tadako {
 
         page.on("request", async (req: HTTPRequest) => {
             const resourceType = req.resourceType();
-            if (["image", "stylesheet", "font", "media", "script"].includes(resourceType)) {
-                await req.abort();
-            } else {
-                await req.continue();
-            }
+            if (["image", "stylesheet", "font", "media", "script"].includes(resourceType)) await req.abort();
+            else await req.continue();
         });
 
         await page.goto(url, { waitUntil: "domcontentloaded" });
+
         const html = await page.content();
         await browser.close();
         return cheerio.load(html);
@@ -107,7 +105,12 @@ export default class Tadako {
      * @returns {SearchFilters} filters - The filters that were used in the search.
      */
     static async search(query: string = "", filters: SearchFilters = {}): Promise<{page: number, maxPages: number, results: Anime[], filters: SearchFilters}> {
-        const $ = await Tadako.parse(`https://${this.domain}/${this.routes.search}?keyword=${query}`);
+        const filterString = Object.entries(filters)
+            .filter(([_, value]) => value != null)
+            .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+            .join("&");
+
+        const $ = await Tadako.parse(`https://${this.domain}/${this.routes.search}?keyword=${query}&${filterString}`);
 
         const results: Anime[] = [];
         $("#main .content .widget .widget-body .film-list .item").each((_, item) => {
