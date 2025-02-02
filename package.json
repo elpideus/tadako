@@ -1,6 +1,6 @@
 {
   "name": "tadako",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "An unofficial AnimeWorld API",
   "author": "Stefan Cucoranu <elpideus@gmail.com>",
   "license": "GPLv3",
@@ -18,7 +18,7 @@
     "scraping"
   ],
   "scripts": {
-    "build": "npx esbuild cli.ts --bundle --outfile=cli.js --platform=node --format=cjs --minify",
+    "build": "npx esbuild cli.ts --bundle --outfile=cli.js --platform=node --format=cjs --minify --target=node22 --external:cheerio --external:esbuild --external:puppeteer",
     "reinstall": "npm uninstall -g tadako && npm install -g .",
     "build_and_reinstall": "npm run build && npm run reinstall"
   },

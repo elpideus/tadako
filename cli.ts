@@ -304,20 +304,21 @@ const runCLI = async () => {
 
         let languageIndex = 0;
 
-        // @ts-ignore
-        if (!options.language) {
-            const languageValues = Object.values(AudioLanguage);
-            while (languageIndex < languageValues.length) {
-                searchOptions.language = languageValues[languageIndex];
-                results = (await Tadako.search(query, searchOptions)).results;
-                if (results.length > 0) break;
-                languageIndex++;
-            }
-        }
-
         if (results.length === 0) {
-            console.log(`No results found for "${query}" in any language.`);
-            process.exit(1);
+            // @ts-ignore
+            if (!options.language) {
+                const languageValues = Object.values(AudioLanguage);
+                while (languageIndex < languageValues.length) {
+                    searchOptions.language = languageValues[languageIndex];
+                    results = (await Tadako.search(query, searchOptions)).results;
+                    if (results.length > 0) break;
+                    languageIndex++;
+                }
+            }
+            if (results.length === 0) {
+                console.log(`No results found for "${query}" in any language.`);
+                process.exit(1);
+            }
         }
 
         let selectedAnime;
