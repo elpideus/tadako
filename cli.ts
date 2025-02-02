@@ -48,15 +48,14 @@ const parseArgs = (args: string[], shortFlagsMapping: { [key: string]: string } 
         if (arg.startsWith("--")) {
             currentFlag = arg.slice(2);
             options[currentFlag] = true;
-        } else if (arg.startsWith("-") && arg.length > 1) {
+        } else if (arg.startsWith("-")) {
+            if (args.length < 1) continue;
             const shortFlag = arg.slice(1);
             const longFlag = shortFlagsMapping[shortFlag];
             if (longFlag) {
                 currentFlag = longFlag;
                 options[longFlag] = true;
-            } else {
-                console.warn(`Unknown short flag: -${shortFlag}`);
-            }
+            } else console.warn(`Unknown short flag: -${shortFlag}`); // TODO: Fix this not working properly
         } else if (currentFlag) {
             options[currentFlag] = arg;
             currentFlag = null;
@@ -80,11 +79,14 @@ const selectedText = (text: string) => { return `\x1b[32m${text}\x1b[0m` }
 const runCLI = async () => {
     const args = process.argv.slice(2);
     const query = args[0];
+    if (query.length < 5) {
+        console.warn("The query should be longer than 4 characters.");
+        return;
+    }
     let command = args[1];
 
     let options = parseArgs(args.slice(2));
 
-    // If there is no query just show the correct usage
     if (!query) {
         console.log("Usage: tadako <anime-title> <command> [--episode <episode-number>] [--language <language>] [other options]");
         process.exit(1);
@@ -243,6 +245,7 @@ const runCLI = async () => {
      * @returns {Promise<any>} The selected episode object.
      */
     const selectEpisode = async (episodes: any[], columns: number = 10): Promise<any> => {
+
         const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout,
@@ -276,7 +279,7 @@ const runCLI = async () => {
 
     const getSelected = async () => {
 
-        const { results } = await Tadako.search(query, {
+        const searchOptions = {
             // @ts-ignore
             genre: options.genre ? (!Number.isNaN(Number(options.genre ?? "null"))) ? options.genre : ItalianGenreMapping[options.genre.toUpperCase()] : null,
             // @ts-ignore
@@ -295,10 +298,25 @@ const runCLI = async () => {
             sort: options.sort ? (!Number.isNaN(Number(options.sort ?? "null"))) ? options.sort : SortingMapping[options.sort.toUpperCase()] : Sorting.OLDEST,
             // @ts-ignore
             dub: options.dub ? (!Number.isNaN(Number(options.dub ?? "null"))) ? options.dub : (["TRUE", "YES", "SI"].includes(options.dub.toUpperCase()) ? "1" : "0") : null,
-        });
+        }
+
+        let results = (await Tadako.search(query, searchOptions)).results;
+
+        let languageIndex = 0;
+
+        // @ts-ignore
+        if (!options.language) {
+            const languageValues = Object.values(AudioLanguage);
+            while (languageIndex < languageValues.length) {
+                searchOptions.language = languageValues[languageIndex];
+                results = (await Tadako.search(query, searchOptions)).results;
+                if (results.length > 0) break;
+                languageIndex++;
+            }
+        }
 
         if (results.length === 0) {
-            console.log(`No results found for "${query}"`);
+            console.log(`No results found for "${query}" in any language.`);
             process.exit(1);
         }
 
@@ -315,6 +333,9 @@ const runCLI = async () => {
             console.log("Selected anime not found.");
             process.exit(1);
         }
+
+        console.clear();
+        console.log("Loading episodes...");
 
         await selectedAnime.data();
 
@@ -334,6 +355,8 @@ const runCLI = async () => {
             process.exit(1);
         }
 
+        console.clear();
+        console.log("Anime loading...");
         const downloadURL = await selectedEpisode.getDownloadURL();
         if (!downloadURL) {
             // @ts-ignore
@@ -400,10 +423,12 @@ const runCLI = async () => {
                 // @ts-ignore
                 let currentEpisodeIndex = options.episode ? options.episode - 1 : 0;
                 // @ts-ignore
-                for (const episode of selected.selectedAnime.episodes.slice(options.episode ? options.episode - 1 : 0, selected.selectedAnime.episodes.length - 1)) {
+                for (const episode of selected.selectedAnime.episodes.slice(options.episode ? options.episode - 1 : 0)) {
                     console.clear();
+                    currentEpisodeIndex += 1;
                     // @ts-ignore
-                    console.log(`"${selected.selectedAnime.title}" episode ${++currentEpisodeIndex} is now playing via ${options["mpv-dir"] ?? "mpv"}\`...`);
+                    console.log(`"${selected.selectedAnime.title}" episode ${currentEpisodeIndex} is now playing via ${options["mpv-dir"] ?? "mpv"}\`...`);
+                    console.log("Use CTRL + C to stop watching.");
                     const episodeURL = await episode.getDownloadURL();
                     if (episodeURL) await playEpisode(episodeURL, true);
                 }
@@ -474,11 +499,6 @@ const runCLI = async () => {
         process.exit(1);
     }
 };
-
-process.on('SIGINT', () => {
-    console.log('Ctrl+C detected. Exiting...');
-    process.exit(0);
-});
 
 if (require.main === module) {
     runCLI().catch((err) => {
