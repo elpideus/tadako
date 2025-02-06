@@ -479,7 +479,7 @@ const runCLI = async () => {
             const selectedAnime = selected.selectedAnime;
             let episode: Episode = selected.selectedEpisode;
             // @ts-ignore
-            if (options.episode) episode = selectedAnime.episodes[episode];
+            if (options.episode) episode = selectedAnime.episodes[parseInt(options.episode) - 1];
                 const downloadURL = await episode.getDownloadURL();
                 if (downloadURL) {
                     await downloadEpisode(downloadURL, false);
