@@ -20,6 +20,7 @@ import {SortingMapping} from "./src/enums/Sorting";
 import {ItalianStatusMapping, StatusMapping} from "./src/enums/Status";
 import DateParser from "./src/utilities/DateParser";
 import type Episode from "./src/Episode.ts";
+import {doesNotMatch} from "node:assert";
 
 const shortFlagMap = {
     h: "help",
@@ -96,7 +97,8 @@ const runCLI = async () => {
     if (query === "--help" || query === "-h") {
         const commands = {
             watch: "Starts playing the selected anime via mpv",
-            download: "Downloads the selected anime"
+            download: "Downloads the selected anime",
+            link: "Displays direct links to anime episodes"
         };
 
         const flags: { [key: string]: { short?: string, info: string, example?: string } } = {
@@ -237,6 +239,8 @@ const runCLI = async () => {
         process.stdout.write(output);
     };
 
+    let selectedEpisodeIndex = 0;
+
     /**
      * Prompts the user to select an episode from a grid layout via keyboard navigation.
      *
@@ -263,7 +267,10 @@ const runCLI = async () => {
             else if (key.name === 'down') selectedIndex = rowIndex < rows - 1 ? selectedIndex + columns : colIndex;
             else if (key.name === 'left') selectedIndex = colIndex > 0 ? selectedIndex - 1 : rowIndex * columns + (columns - 1);
             else if (key.name === 'right') selectedIndex = colIndex < columns - 1 && selectedIndex < episodes.length - 1 ? selectedIndex + 1 : rowIndex * columns;
-            else if (key.name === 'return') rl.close();
+            else if (key.name === 'return') {
+                selectedEpisodeIndex = selectedIndex;
+                rl.close();
+            }
 
             renderEpisodesInRows(episodes.map((episode: any, index: number) => `${index + 1}`), selectedIndex, columns);
         };
@@ -435,9 +442,15 @@ const runCLI = async () => {
                 }
             } else {
                 // @ts-ignore
+                console.log(`"${selected.selectedAnime.title}" episode ${options.episode ?? selectedEpisodeIndex} is now playing via ${options["mpv-dir"] ?? "mpv"}\`...`)
+                // @ts-ignore
                 await playEpisode(selected.downloadURL, true);
             }
-        } else await playEpisode(selected.downloadURL);
+        } else {
+            // @ts-ignore
+            console.log(`"${selected.selectedAnime.title}" episode ${options.episode ?? selectedEpisodeIndex} is now playing via ${options["mpv-dir"] ?? "mpv"}\`...`)
+            await playEpisode(selected.downloadURL);
+        }
     }
 
 
@@ -473,6 +486,8 @@ const runCLI = async () => {
             console.clear();
             // @ts-ignore
             console.log(`Downloaded ${episodes.length} (${options.episode ?? 1} -> ${selectedAnime.episodes.length}) episodes of ${selectedAnime.title} in ${humanReadableTime}.`);
+            // @ts-ignore
+            console.log(`Downloaded file(s) can be found in "${options["out-dir"] ?? path.join(os.homedir(), "Downloads")}"`)
         } else {
             const startTime = Date.now();
 
@@ -491,11 +506,42 @@ const runCLI = async () => {
 
             console.clear();
             // @ts-ignore
-            console.log(`Downloaded 1 episode from ${selectedAnime.title} in ${humanReadableTime}.`);
+            console.log(`Downloaded episode ${options.episode ?? selectedEpisodeIndex} of "${selectedAnime.title}" in ${humanReadableTime}.`);
+            // @ts-ignore
+            console.log(`Downloaded file(s) can be found in "${options["out-dir"] ?? path.join(os.homedir(), "Downloads")}"`)
         }
 
         process.exit();
-    } else {
+    } else if (command === "link") {
+        const selected = await getSelected();
+        const downloadURL = await selected.selectedEpisode.getDownloadURL();
+
+        if (downloadURL) {
+            console.clear();
+            // @ts-ignore
+            if (options.all) {
+                const selectedAnime = selected.selectedAnime;
+                let episodes: Episode[] = selectedAnime.episodes;
+                // @ts-ignore
+                if (options.episode) episodes = selectedAnime.episodes.slice(options.episode - 1, selectedAnime.episodes.length - 1);
+                let episodeCounter = 1
+                for (const episode of episodes) {
+                    const downloadURL = await episode.getDownloadURL();
+                    if (downloadURL) {
+                        console.log(`"${selectedAnime.title}" episode ${episodeCounter} link:`);
+                        console.log(downloadURL);
+                        episodeCounter+=1;
+                    }
+                }
+            } else {
+                // @ts-ignore
+                console.log(`"${selected.selectedAnime.title}" episode ${options.episode ?? selectedEpisodeIndex + 1} link:`);
+                console.log(downloadURL);
+            }
+        } else console.log("No download URL found for the selected anime/episode.");
+    }
+
+    else {
         console.log("Invalid command or missing arguments");
         process.exit(1);
     }

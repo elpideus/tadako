@@ -2,7 +2,7 @@
 ![GitHub release ](https://img.shields.io/github/v/release/elpideus/tadako?include_prereleases&style=for-the-badge&logo=github)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/elpideus/tadako?style=for-the-badge&logo=github)
 ![GitHub all releases](https://img.shields.io/github/downloads/elpideus/tadako/total?style=for-the-badge&logo=github)
-![npm downloads](https://img.shields.io/npm/dt/tadako?style=for-the-badge&logo=npm)
+![npm weekly downloads](https://img.shields.io/npm/dt/tadako?label=Weekly%20Downloads&style=for-the-badge&logo=npm)
 ![GitHub](https://img.shields.io/github/license/elpideus/tadako?style=for-the-badge)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/elpideus/tadako?style=for-the-badge&label=Updates%20Frequency)
 ![GitHub last commit](https://img.shields.io/github/last-commit/elpideus/tadako?style=for-the-badge&label=Updated)
@@ -193,7 +193,10 @@ sources that are helping us in doing so.
 
 These are things that we still need to implement in no specific order.
 
+- Verify that the files exist before downloading them
 - Add support for different download servers
 - Create documentation website
 - Finish descriptions of all the studios.
 - Automatic download of platform-specific dependencies (like mpv)
+- Add proxy support
+- Move help messages to a JSON file for compatibility

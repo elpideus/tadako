@@ -235,8 +235,58 @@ export enum Studio {
      * @link [Official Website](https://www.abc-anime.co.jp/)
      */
     ABC_ANIMATION = "ABC Animation",
+
+    /**
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * in [this article](https://myanimelist.net/anime/producer/2807/ABJ_COMPANY):
+     *
+     * ABJ COMPANY is an animation studio and webtoon agency.
+     *
+     * We weren't able to find any more information about this studio
+     */
     ABJ_COMPANY = "ABJ COMPANY",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this italian article](https://it.wikipedia.org/wiki/Acca_effe):
+     *
+     * Acca effe (株式会社 Acca effe, Kabushiki-gaisha Acca effe) is a Japanese animation studio founded on May 8, 2009,
+     * and based in Nerima, Tokyo.
+     *
+     * The studio was founded on May 8, 2009, by Namatame Satoshi, one of the producers of "Godannar" and "Gun x Sword",
+     * along with former employees of Studio AIC, the production company behind the aforementioned anime. The studio
+     * primarily specializes in subcontracting work and frequently collaborates with TROYCA, a studio established by
+     * former members of AIC Classic.
+     *
+     * In 2019, the studio co-produced the series "Strike Witches: 501st Joint Fighter Wing Take Off!" together with
+     * Giga Production, marking its first experience as a primary producer.
+     * In 2022, the company established Production CK.
+     *
+     * The studio is headquartered in Nerima, Tokyo.
+     */
     ACCA_EFFE = "Acca effe",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Actas):
+     *
+     * Actas Inc. is a Japanese animation studio founded in 1998. It is currently a subsidiary of Bandai Namco
+     * Filmworks, which in turn is a subsidiary to Bandai Namco Holdings.
+     *
+     * Actas was founded on July 6, 1998, by Hiroshi Katō and Jūtarō Ōba, who previously worked for Tatsunoko Production
+     * and Ashi Productions.
+     *
+     * Following Katō's death in 2009, Shunpei Maruyama was named the new company president. The studio also had a
+     * subsidiary animation studio Karaku, but Actas merged it with the main company in July 2017.
+     *
+     * In September 2017, Bandai Visual has announced that it had acquired Actas.
+     *
+     * In August 2023, it was announced that former president and animation producer Shunpei Maruyama had died.
+     *
+     * ---
+     *
+     * They have worked on popular anime like "Girls & Panzer" and "Tsue to Tsurugi no Wistoria".
+     */
     ACTAS = "Actas",
     AIC = "AIC",
     AIC_A_S_T_A = "AIC A.S.T.A.",
