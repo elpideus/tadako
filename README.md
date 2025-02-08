@@ -193,10 +193,8 @@ sources that are helping us in doing so.
 
 These are things that we still need to implement in no specific order.
 
-- Verify that the files exist before downloading them
 - Add support for different download servers
 - Create documentation website
 - Finish descriptions of all the studios.
 - Automatic download of platform-specific dependencies (like mpv)
 - Add proxy support
-- Move help messages to a JSON file for compatibility
