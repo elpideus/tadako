@@ -19,6 +19,7 @@ export default class Downloader {
     }
 
     public downloadFile = async (threads: number = Math.ceil((os.cpus().length / 2)), clearConsoleOnNewDownload: boolean = true): Promise<void> => {
+        const filePath = path.join(this.outputDir, this.fileName);
 
         const getHeaders = () =>
             new Promise((resolve, reject) => {
@@ -37,6 +38,16 @@ export default class Downloader {
         // @ts-ignore
         const totalSize = parseInt(headers["content-length"] || "0", 10);
         if (!totalSize) throw new Error("Unable to determine file size.");
+
+        try {
+            const stats = await fs.promises.stat(filePath);
+            if (stats.size === totalSize) {
+                console.log(`File already exists: ${this.fileName} (${(totalSize / 1024 / 1024).toFixed(2)} MB). Skipping download...`);
+                return;
+            }
+        } catch (err) {
+            // File doesn't exist, continue with download
+        }
 
         const chunkSize = Math.ceil(totalSize / threads);
         let downloadedSize = 0;
@@ -111,7 +122,7 @@ export default class Downloader {
 
         try {
             const chunks = await Promise.all(promises);
-            await fs.promises.writeFile(path.join(this.outputDir, this.fileName), Buffer.concat(chunks));
+            await fs.promises.writeFile(filePath, Buffer.concat(chunks));
             clearInterval(updateProgress);
             const updateString = `Finished downloading ${this.fileName} (${(totalSize / 1024 / 1024).toFixed(2)} MB) in ${DateParser.secondsToHumanTime(secondsTaken)}.\n`;
             if (clearConsoleOnNewDownload) {

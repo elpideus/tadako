@@ -288,13 +288,357 @@ export enum Studio {
      * They have worked on popular anime like "Girls & Panzer" and "Tsue to Tsurugi no Wistoria".
      */
     ACTAS = "Actas",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Anime_International_Company):
+     *
+     * Anime International Company, Inc. (Japanese: 株式会社アニメインターナショナルカンパニー, Hepburn: Kabushiki-gaisha Anime
+     * Intānashonaru Kanpanī), often abbreviated as AIC, is a Japanese animation studio founded on June 15, 1982 and
+     * located in Nerima, Tokyo, Japan. On December 10, 2015, AIC RIGHTS Company, Inc. was established through acompany
+     * split, in which AIC Rights received the transfer of some of the copyrights owned by Anime International Company.
+     *
+     * AIC had eight sub-studios within itself, named: AIC ASTA (2003, formerly: AIC A.S.T.A.), AIC Build (2010),
+     * AIC Classic (2010), AIC Digital (1997), AIC Frontier (June 2012), AIC PLUS+ (2006), AIC Spirits (2003) and AIC
+     * Takarazuka (2006).
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/48/AIC):
+     *
+     * AIC (Anime International Company, Inc.) is a Japanese animation studio based in Nerima, Tokyo, Japan. Kazushi
+     * Nomura and Toru Miura established AIC on July 15, 1982, with Nomura serving as the studio's president until
+     * leaving to found Another Push Pin Planning (APPP) on June 22, 1984. Following Nomura's departure, Miura assumed
+     * the role as the studio's president. As a result, the studio began producing works as a prime contractor, riding
+     * on the late 1980s OVA boom. The studio later expanded into game production (AIC Spirits) and the publishing
+     * business (AIC Club). In 2003, the studio shuttered AIC Spirits and AIC Club and reorganized itself into three
+     * sub-studios; AIC A.S.T.A. (now AIC ASTA), AIC Digital, and AIC Spirits. In February 2008, ACA-managed investment
+     * fund MCP Synergy acquired a 95% stake in the studio, and a new Anime International Company, Inc. was established
+     * through an incorporation-type demerger in May of the same year. In September 2010, Oizumi Corporation made AIC
+     * into a wholly-owned subsidiary of the company. In March of the following year, the studio became a wholly-owned
+     * subsidiary of Aplix Corporation. In January 2014, Aplix IP Holdings (now Aplix Corporation) announced its exit
+     * from its multimedia entertainment business, and transferred all of its shares in the studio to Toru Miura.
+     * In August 2015, the studio's animation production department was disbanded. The same year in December, Miura
+     * appointed Yasutaka Omura as the company's new representative director, and also transferred its classic IPs to
+     * AIC RIGHTS (AIC RIGHTS Co., Ltd.) through a corporation-separation procedure. In January 2020, Miura reassumed
+     * the representative director position from Omura.
+     *
+     * The studio had several sub-studios within itself; in 2013, they consisted of: AIC ASTA, AIC Build, AIC Classic,
+     * AIC Digital, AIC PLUS+, and AIC Frontier. In addition, the studio also had a background art, CG, photography,
+     * finishing, and editing departments, as well as a recording and editing studio AIC Eastside Studio.
+     *
+     * ---
+     *
+     * This studio has worked on some popular titles including (but not limited to) "Date a Live", "Ore no Imouto ga
+     * Konnani Kawaii Wake ga Nai", "Maken-Ki!", "Strike Witches 2"
+     */
     AIC = "AIC",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Anime_International_Company):
+     *
+     * Anime International Company, Inc. (Japanese: 株式会社アニメインターナショナルカンパニー, Hepburn: Kabushiki-gaisha Anime
+     * Intānashonaru Kanpanī), often abbreviated as AIC, is a Japanese animation studio founded on June 15, 1982 and
+     * located in Nerima, Tokyo, Japan. On December 10, 2015, AIC RIGHTS Company, Inc. was established through acompany
+     * split, in which AIC Rights received the transfer of some of the copyrights owned by Anime International Company.
+     *
+     * AIC had eight sub-studios within itself, named: AIC ASTA (2003, formerly: AIC A.S.T.A.), AIC Build (2010),
+     * AIC Classic (2010), AIC Digital (1997), AIC Frontier (June 2012), AIC PLUS+ (2006), AIC Spirits (2003) and AIC
+     * Takarazuka (2006).
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/48/AIC):
+     *
+     * AIC (Anime International Company, Inc.) is a Japanese animation studio based in Nerima, Tokyo, Japan. Kazushi
+     * Nomura and Toru Miura established AIC on July 15, 1982, with Nomura serving as the studio's president until
+     * leaving to found Another Push Pin Planning (APPP) on June 22, 1984. Following Nomura's departure, Miura assumed
+     * the role as the studio's president. As a result, the studio began producing works as a prime contractor, riding
+     * on the late 1980s OVA boom. The studio later expanded into game production (AIC Spirits) and the publishing
+     * business (AIC Club). In 2003, the studio shuttered AIC Spirits and AIC Club and reorganized itself into three
+     * sub-studios; AIC A.S.T.A. (now AIC ASTA), AIC Digital, and AIC Spirits. In February 2008, ACA-managed investment
+     * fund MCP Synergy acquired a 95% stake in the studio, and a new Anime International Company, Inc. was established
+     * through an incorporation-type demerger in May of the same year. In September 2010, Oizumi Corporation made AIC
+     * into a wholly-owned subsidiary of the company. In March of the following year, the studio became a wholly-owned
+     * subsidiary of Aplix Corporation. In January 2014, Aplix IP Holdings (now Aplix Corporation) announced its exit
+     * from its multimedia entertainment business, and transferred all of its shares in the studio to Toru Miura.
+     * In August 2015, the studio's animation production department was disbanded. The same year in December, Miura
+     * appointed Yasutaka Omura as the company's new representative director, and also transferred its classic IPs to
+     * AIC RIGHTS (AIC RIGHTS Co., Ltd.) through a corporation-separation procedure. In January 2020, Miura reassumed
+     * the representative director position from Omura.
+     *
+     * The studio had several sub-studios within itself; in 2013, they consisted of: AIC ASTA, AIC Build, AIC Classic,
+     * AIC Digital, AIC PLUS+, and AIC Frontier. In addition, the studio also had a background art, CG, photography,
+     * finishing, and editing departments, as well as a recording and editing studio AIC Eastside Studio.
+     *
+     * ---
+     *
+     * This studio has worked on some popular titles including (but not limited to) "Date a Live", "Ore no Imouto ga
+     * Konnani Kawaii Wake ga Nai", "Maken-Ki!", "Strike Witches 2"
+     */
     AIC_A_S_T_A = "AIC A.S.T.A.",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Anime_International_Company):
+     *
+     * Anime International Company, Inc. (Japanese: 株式会社アニメインターナショナルカンパニー, Hepburn: Kabushiki-gaisha Anime
+     * Intānashonaru Kanpanī), often abbreviated as AIC, is a Japanese animation studio founded on June 15, 1982 and
+     * located in Nerima, Tokyo, Japan. On December 10, 2015, AIC RIGHTS Company, Inc. was established through acompany
+     * split, in which AIC Rights received the transfer of some of the copyrights owned by Anime International Company.
+     *
+     * AIC had eight sub-studios within itself, named: AIC ASTA (2003, formerly: AIC A.S.T.A.), AIC Build (2010),
+     * AIC Classic (2010), AIC Digital (1997), AIC Frontier (June 2012), AIC PLUS+ (2006), AIC Spirits (2003) and AIC
+     * Takarazuka (2006).
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/48/AIC):
+     *
+     * AIC (Anime International Company, Inc.) is a Japanese animation studio based in Nerima, Tokyo, Japan. Kazushi
+     * Nomura and Toru Miura established AIC on July 15, 1982, with Nomura serving as the studio's president until
+     * leaving to found Another Push Pin Planning (APPP) on June 22, 1984. Following Nomura's departure, Miura assumed
+     * the role as the studio's president. As a result, the studio began producing works as a prime contractor, riding
+     * on the late 1980s OVA boom. The studio later expanded into game production (AIC Spirits) and the publishing
+     * business (AIC Club). In 2003, the studio shuttered AIC Spirits and AIC Club and reorganized itself into three
+     * sub-studios; AIC A.S.T.A. (now AIC ASTA), AIC Digital, and AIC Spirits. In February 2008, ACA-managed investment
+     * fund MCP Synergy acquired a 95% stake in the studio, and a new Anime International Company, Inc. was established
+     * through an incorporation-type demerger in May of the same year. In September 2010, Oizumi Corporation made AIC
+     * into a wholly-owned subsidiary of the company. In March of the following year, the studio became a wholly-owned
+     * subsidiary of Aplix Corporation. In January 2014, Aplix IP Holdings (now Aplix Corporation) announced its exit
+     * from its multimedia entertainment business, and transferred all of its shares in the studio to Toru Miura.
+     * In August 2015, the studio's animation production department was disbanded. The same year in December, Miura
+     * appointed Yasutaka Omura as the company's new representative director, and also transferred its classic IPs to
+     * AIC RIGHTS (AIC RIGHTS Co., Ltd.) through a corporation-separation procedure. In January 2020, Miura reassumed
+     * the representative director position from Omura.
+     *
+     * The studio had several sub-studios within itself; in 2013, they consisted of: AIC ASTA, AIC Build, AIC Classic,
+     * AIC Digital, AIC PLUS+, and AIC Frontier. In addition, the studio also had a background art, CG, photography,
+     * finishing, and editing departments, as well as a recording and editing studio AIC Eastside Studio.
+     *
+     * ---
+     *
+     * This studio has worked on some popular titles including (but not limited to) "Date a Live", "Ore no Imouto ga
+     * Konnani Kawaii Wake ga Nai", "Maken-Ki!", "Strike Witches 2"
+     */
     AIC_BUILD = "AIC Build",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Anime_International_Company):
+     *
+     * Anime International Company, Inc. (Japanese: 株式会社アニメインターナショナルカンパニー, Hepburn: Kabushiki-gaisha Anime
+     * Intānashonaru Kanpanī), often abbreviated as AIC, is a Japanese animation studio founded on June 15, 1982 and
+     * located in Nerima, Tokyo, Japan. On December 10, 2015, AIC RIGHTS Company, Inc. was established through acompany
+     * split, in which AIC Rights received the transfer of some of the copyrights owned by Anime International Company.
+     *
+     * AIC had eight sub-studios within itself, named: AIC ASTA (2003, formerly: AIC A.S.T.A.), AIC Build (2010),
+     * AIC Classic (2010), AIC Digital (1997), AIC Frontier (June 2012), AIC PLUS+ (2006), AIC Spirits (2003) and AIC
+     * Takarazuka (2006).
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/48/AIC):
+     *
+     * AIC (Anime International Company, Inc.) is a Japanese animation studio based in Nerima, Tokyo, Japan. Kazushi
+     * Nomura and Toru Miura established AIC on July 15, 1982, with Nomura serving as the studio's president until
+     * leaving to found Another Push Pin Planning (APPP) on June 22, 1984. Following Nomura's departure, Miura assumed
+     * the role as the studio's president. As a result, the studio began producing works as a prime contractor, riding
+     * on the late 1980s OVA boom. The studio later expanded into game production (AIC Spirits) and the publishing
+     * business (AIC Club). In 2003, the studio shuttered AIC Spirits and AIC Club and reorganized itself into three
+     * sub-studios; AIC A.S.T.A. (now AIC ASTA), AIC Digital, and AIC Spirits. In February 2008, ACA-managed investment
+     * fund MCP Synergy acquired a 95% stake in the studio, and a new Anime International Company, Inc. was established
+     * through an incorporation-type demerger in May of the same year. In September 2010, Oizumi Corporation made AIC
+     * into a wholly-owned subsidiary of the company. In March of the following year, the studio became a wholly-owned
+     * subsidiary of Aplix Corporation. In January 2014, Aplix IP Holdings (now Aplix Corporation) announced its exit
+     * from its multimedia entertainment business, and transferred all of its shares in the studio to Toru Miura.
+     * In August 2015, the studio's animation production department was disbanded. The same year in December, Miura
+     * appointed Yasutaka Omura as the company's new representative director, and also transferred its classic IPs to
+     * AIC RIGHTS (AIC RIGHTS Co., Ltd.) through a corporation-separation procedure. In January 2020, Miura reassumed
+     * the representative director position from Omura.
+     *
+     * The studio had several sub-studios within itself; in 2013, they consisted of: AIC ASTA, AIC Build, AIC Classic,
+     * AIC Digital, AIC PLUS+, and AIC Frontier. In addition, the studio also had a background art, CG, photography,
+     * finishing, and editing departments, as well as a recording and editing studio AIC Eastside Studio.
+     *
+     * ---
+     *
+     * This studio has worked on some popular titles including (but not limited to) "Date a Live", "Ore no Imouto ga
+     * Konnani Kawaii Wake ga Nai", "Maken-Ki!", "Strike Witches 2"
+     */
     AIC_CLASSIC = "AIC Classic",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Anime_International_Company):
+     *
+     * Anime International Company, Inc. (Japanese: 株式会社アニメインターナショナルカンパニー, Hepburn: Kabushiki-gaisha Anime
+     * Intānashonaru Kanpanī), often abbreviated as AIC, is a Japanese animation studio founded on June 15, 1982 and
+     * located in Nerima, Tokyo, Japan. On December 10, 2015, AIC RIGHTS Company, Inc. was established through acompany
+     * split, in which AIC Rights received the transfer of some of the copyrights owned by Anime International Company.
+     *
+     * AIC had eight sub-studios within itself, named: AIC ASTA (2003, formerly: AIC A.S.T.A.), AIC Build (2010),
+     * AIC Classic (2010), AIC Digital (1997), AIC Frontier (June 2012), AIC PLUS+ (2006), AIC Spirits (2003) and AIC
+     * Takarazuka (2006).
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/48/AIC):
+     *
+     * AIC (Anime International Company, Inc.) is a Japanese animation studio based in Nerima, Tokyo, Japan. Kazushi
+     * Nomura and Toru Miura established AIC on July 15, 1982, with Nomura serving as the studio's president until
+     * leaving to found Another Push Pin Planning (APPP) on June 22, 1984. Following Nomura's departure, Miura assumed
+     * the role as the studio's president. As a result, the studio began producing works as a prime contractor, riding
+     * on the late 1980s OVA boom. The studio later expanded into game production (AIC Spirits) and the publishing
+     * business (AIC Club). In 2003, the studio shuttered AIC Spirits and AIC Club and reorganized itself into three
+     * sub-studios; AIC A.S.T.A. (now AIC ASTA), AIC Digital, and AIC Spirits. In February 2008, ACA-managed investment
+     * fund MCP Synergy acquired a 95% stake in the studio, and a new Anime International Company, Inc. was established
+     * through an incorporation-type demerger in May of the same year. In September 2010, Oizumi Corporation made AIC
+     * into a wholly-owned subsidiary of the company. In March of the following year, the studio became a wholly-owned
+     * subsidiary of Aplix Corporation. In January 2014, Aplix IP Holdings (now Aplix Corporation) announced its exit
+     * from its multimedia entertainment business, and transferred all of its shares in the studio to Toru Miura.
+     * In August 2015, the studio's animation production department was disbanded. The same year in December, Miura
+     * appointed Yasutaka Omura as the company's new representative director, and also transferred its classic IPs to
+     * AIC RIGHTS (AIC RIGHTS Co., Ltd.) through a corporation-separation procedure. In January 2020, Miura reassumed
+     * the representative director position from Omura.
+     *
+     * The studio had several sub-studios within itself; in 2013, they consisted of: AIC ASTA, AIC Build, AIC Classic,
+     * AIC Digital, AIC PLUS+, and AIC Frontier. In addition, the studio also had a background art, CG, photography,
+     * finishing, and editing departments, as well as a recording and editing studio AIC Eastside Studio.
+     *
+     * ---
+     *
+     * This studio has worked on some popular titles including (but not limited to) "Date a Live", "Ore no Imouto ga
+     * Konnani Kawaii Wake ga Nai", "Maken-Ki!", "Strike Witches 2"
+     */
     AIC_FRONTIER = "AIC Frontier",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Anime_International_Company):
+     *
+     * Anime International Company, Inc. (Japanese: 株式会社アニメインターナショナルカンパニー, Hepburn: Kabushiki-gaisha Anime
+     * Intānashonaru Kanpanī), often abbreviated as AIC, is a Japanese animation studio founded on June 15, 1982 and
+     * located in Nerima, Tokyo, Japan. On December 10, 2015, AIC RIGHTS Company, Inc. was established through acompany
+     * split, in which AIC Rights received the transfer of some of the copyrights owned by Anime International Company.
+     *
+     * AIC had eight sub-studios within itself, named: AIC ASTA (2003, formerly: AIC A.S.T.A.), AIC Build (2010),
+     * AIC Classic (2010), AIC Digital (1997), AIC Frontier (June 2012), AIC PLUS+ (2006), AIC Spirits (2003) and AIC
+     * Takarazuka (2006).
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/48/AIC):
+     *
+     * AIC (Anime International Company, Inc.) is a Japanese animation studio based in Nerima, Tokyo, Japan. Kazushi
+     * Nomura and Toru Miura established AIC on July 15, 1982, with Nomura serving as the studio's president until
+     * leaving to found Another Push Pin Planning (APPP) on June 22, 1984. Following Nomura's departure, Miura assumed
+     * the role as the studio's president. As a result, the studio began producing works as a prime contractor, riding
+     * on the late 1980s OVA boom. The studio later expanded into game production (AIC Spirits) and the publishing
+     * business (AIC Club). In 2003, the studio shuttered AIC Spirits and AIC Club and reorganized itself into three
+     * sub-studios; AIC A.S.T.A. (now AIC ASTA), AIC Digital, and AIC Spirits. In February 2008, ACA-managed investment
+     * fund MCP Synergy acquired a 95% stake in the studio, and a new Anime International Company, Inc. was established
+     * through an incorporation-type demerger in May of the same year. In September 2010, Oizumi Corporation made AIC
+     * into a wholly-owned subsidiary of the company. In March of the following year, the studio became a wholly-owned
+     * subsidiary of Aplix Corporation. In January 2014, Aplix IP Holdings (now Aplix Corporation) announced its exit
+     * from its multimedia entertainment business, and transferred all of its shares in the studio to Toru Miura.
+     * In August 2015, the studio's animation production department was disbanded. The same year in December, Miura
+     * appointed Yasutaka Omura as the company's new representative director, and also transferred its classic IPs to
+     * AIC RIGHTS (AIC RIGHTS Co., Ltd.) through a corporation-separation procedure. In January 2020, Miura reassumed
+     * the representative director position from Omura.
+     *
+     * The studio had several sub-studios within itself; in 2013, they consisted of: AIC ASTA, AIC Build, AIC Classic,
+     * AIC Digital, AIC PLUS+, and AIC Frontier. In addition, the studio also had a background art, CG, photography,
+     * finishing, and editing departments, as well as a recording and editing studio AIC Eastside Studio.
+     *
+     * ---
+     *
+     * This studio has worked on some popular titles including (but not limited to) "Date a Live", "Ore no Imouto ga
+     * Konnani Kawaii Wake ga Nai", "Maken-Ki!", "Strike Witches 2"
+     */
     AIC_PLUS = "AIC Plus+",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Anime_International_Company):
+     *
+     * Anime International Company, Inc. (Japanese: 株式会社アニメインターナショナルカンパニー, Hepburn: Kabushiki-gaisha Anime
+     * Intānashonaru Kanpanī), often abbreviated as AIC, is a Japanese animation studio founded on June 15, 1982 and
+     * located in Nerima, Tokyo, Japan. On December 10, 2015, AIC RIGHTS Company, Inc. was established through acompany
+     * split, in which AIC Rights received the transfer of some of the copyrights owned by Anime International Company.
+     *
+     * AIC had eight sub-studios within itself, named: AIC ASTA (2003, formerly: AIC A.S.T.A.), AIC Build (2010),
+     * AIC Classic (2010), AIC Digital (1997), AIC Frontier (June 2012), AIC PLUS+ (2006), AIC Spirits (2003) and AIC
+     * Takarazuka (2006).
+     *
+     * ---
+     *
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * on [this page](https://myanimelist.net/anime/producer/48/AIC):
+     *
+     * AIC (Anime International Company, Inc.) is a Japanese animation studio based in Nerima, Tokyo, Japan. Kazushi
+     * Nomura and Toru Miura established AIC on July 15, 1982, with Nomura serving as the studio's president until
+     * leaving to found Another Push Pin Planning (APPP) on June 22, 1984. Following Nomura's departure, Miura assumed
+     * the role as the studio's president. As a result, the studio began producing works as a prime contractor, riding
+     * on the late 1980s OVA boom. The studio later expanded into game production (AIC Spirits) and the publishing
+     * business (AIC Club). In 2003, the studio shuttered AIC Spirits and AIC Club and reorganized itself into three
+     * sub-studios; AIC A.S.T.A. (now AIC ASTA), AIC Digital, and AIC Spirits. In February 2008, ACA-managed investment
+     * fund MCP Synergy acquired a 95% stake in the studio, and a new Anime International Company, Inc. was established
+     * through an incorporation-type demerger in May of the same year. In September 2010, Oizumi Corporation made AIC
+     * into a wholly-owned subsidiary of the company. In March of the following year, the studio became a wholly-owned
+     * subsidiary of Aplix Corporation. In January 2014, Aplix IP Holdings (now Aplix Corporation) announced its exit
+     * from its multimedia entertainment business, and transferred all of its shares in the studio to Toru Miura.
+     * In August 2015, the studio's animation production department was disbanded. The same year in December, Miura
+     * appointed Yasutaka Omura as the company's new representative director, and also transferred its classic IPs to
+     * AIC RIGHTS (AIC RIGHTS Co., Ltd.) through a corporation-separation procedure. In January 2020, Miura reassumed
+     * the representative director position from Omura.
+     *
+     * The studio had several sub-studios within itself; in 2013, they consisted of: AIC ASTA, AIC Build, AIC Classic,
+     * AIC Digital, AIC PLUS+, and AIC Frontier. In addition, the studio also had a background art, CG, photography,
+     * finishing, and editing departments, as well as a recording and editing studio AIC Eastside Studio.
+     *
+     * ---
+     *
+     * This studio has worked on some popular titles including (but not limited to) "Date a Live", "Ore no Imouto ga
+     * Konnani Kawaii Wake ga Nai", "Maken-Ki!", "Strike Witches 2"
+     */
     AIC_SPIRITS = "AIC Spirits",
+
+    /**
+     * According to [Wikipedia](https://it.wikipedia.org)
+     * in [this article](https://en.wikipedia.org/wiki/Ajia-do_Animation_Works):
+     *
+     * Ajia-do Co., Ltd. (Japanese: 株式会社亜細亜堂, Hepburn: Kabushiki-gaisha Ajiadō) is a Japanese animation studio
+     * established on October 4, 1978. Its name can be translated as "Hall of Asia."
+     *
+     * The studio was founded in 1978 by the noted animators Tsutomu Shibayama, Osamu Kobayashi and Michishiro Yamada,
+     * former members of the animation studio A Production, under the corporate title Yugen-kaisha Ajiadō
+     * (有限会社亜細亜堂). The name Ajiadō is a penname used by Tsutomu Shibayama and Osamu Kobayashi.
+     *
+     * In 1985, it formally became a kabushiki gaisha (business corporation). In 1987, it produced its first series, the
+     * OVA "Twilight Q" (トワイライトQ, Towairaito Q). It established the company Dap International Kabushiki-gaisha
+     * (ダップインターナショナル株式会社, Dappu Intānashonaru Kabushiki-gaisha) in 1990.
+     *
+     * At the same time, they established a joint venture company, Japan Taps (ジャパンタップス, Japan Tappusu), with the
+     * toy company Takara. They undertook the production of anime such as "Miracle Girls" and also engaged in
+     * subcontracting for other anime productions sponsored by the company (later dissolved). In 1998, the studio
+     * established a digital animation division to produce its digital animation.
+     *
+     * In 2005, the studio produced "Zettai Shōnen", which was directed by Tomomi Mochizuki and premiered on NHK BS2. In
+     * 2007, it produced "Emma – A Victorian Romance: Second Act", the second season of "Emma – A Victorian Romance".
+     *
+     * ---
+     *
+     * They have worked on titles like "Isekai Maou to Shoukan Shoujo no Dorei Majutsu", "Bokura no Nanokakan Sensou"
+     * and 
+     */
     AJIA_DO = "Ajia-Do",
     AKATSUKI = "Akatsuki",
     ALBACROW = "Albacrow",

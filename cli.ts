@@ -21,6 +21,7 @@ import {ItalianStatusMapping, StatusMapping} from "./src/enums/Status";
 import DateParser from "./src/utilities/DateParser";
 import type Episode from "./src/Episode.ts";
 import {doesNotMatch} from "node:assert";
+import fs from "fs";
 
 const shortFlagMap = {
     h: "help",
@@ -66,6 +67,16 @@ const parseArgs = (args: string[], shortFlagsMapping: { [key: string]: string } 
     return options;
 };
 
+const loadHelpFile = async (): Promise<{commands: Record<string, string>; flags: Record<string, {info: string; example?: string; short?: string}>}> => {
+    try {
+        const data = fs.readFileSync(path.join(__dirname, "help.json"), "utf-8");
+        return JSON.parse(data);
+    } catch (error) {
+        console.error("Error loading help file:", error);
+        process.exit(1);
+    }
+};
+
 /**
  * ANSI escape sequences for rendering selected and unselected options.
  */
@@ -73,14 +84,13 @@ const selectedCharacter = "\x1b[32m●\x1b[0m";
 const unselectedCharacter = " ";
 const selectedText = (text: string) => { return `\x1b[32m${text}\x1b[0m` }
 
-
 /**
  * Main CLI function to parse arguments, search for anime, and play selected episodes.
  */
 const runCLI = async () => {
     const args = process.argv.slice(2);
     const query = args[0];
-    if (query.length < 5) {
+    if (query.length < 5 && !query.startsWith("-") && !query.startsWith("--")) {
         console.warn("The query should be longer than 4 characters.");
         return;
     }
@@ -95,30 +105,7 @@ const runCLI = async () => {
 
 
     if (query === "--help" || query === "-h") {
-        const commands = {
-            watch: "Starts playing the selected anime via mpv",
-            download: "Downloads the selected anime",
-            link: "Displays direct links to anime episodes"
-        };
-
-        const flags: { [key: string]: { short?: string, info: string, example?: string } } = {
-            "--help": { info: "Displays help regarding the program" },
-            "--version": { info: "Displays the current version of the program" },
-            "--episode": { info: "Defines the anime episode for the command", example: "--episode 6" },
-            "--language": { info: "Defines the audio language for the anime", example: "--language jp" },
-            "--genre": { info: "Defines the genre for the anime search filters", example: "--genre ecchi" },
-            "--season": { info: "Defines the season for the anime search filters", example: "--season winter" },
-            "--year": { info: "Defines the year for the anime search filters", example: "--year 2012" },
-            "--category": { info: "Defines the category for the anime search filters", example: "--category anime" },
-            "--status": { info: "Defines the season for the anime search filters", example: "--status finished" },
-            "--studio": { info: "Defines the studio for the anime search filters", example: "--studio TNK" },
-            "--dub": { info: "Defines the dubbing for the anime search filters", example: "--dub no" },
-            "--sort": { info: "Defines the sorting for the anime search filters", example: "--sort oldest" },
-            "--threads": { info: "Number of threads to use for download", example: "--threads 8" },
-            "--out-dir": { info: "The directory where the file(s) will be downloaded", example: "--out-dir \"C:/Users/Your Name/Desktop\"" },
-            "--filename": { info: "Name of the file containing the downloaded anime video (must contain extension)", example: "--filename \"High School DxD - Episode 6.mp4\"" },
-            "--all": { info: "Selects all of the anime's episodes for watching or downloading. Useful for watching multiple episodes without interruption." }
-        };
+        const {commands, flags} = await loadHelpFile();
 
         Object.keys(flags).forEach(longFlag => {
             // @ts-ignore
@@ -154,9 +141,16 @@ const runCLI = async () => {
     }
 
 
-    if (query && !command || command.startsWith("--") || command.startsWith("-")) {
-        command = "watch";
-        options = parseArgs(args.slice(1));
+    if ((query && !command) || command.startsWith("--") || command.startsWith("-")) {
+        const {commands, flags} = await loadHelpFile();
+        if (!Object.keys(flags).includes(query)) {
+            if (query.startsWith("--") || query.startsWith("-")) {
+                console.log(`"${query}" is not a valid flag. Please consult "tadako --help" for usage information.`);
+                process.exit();
+            }
+            command = "watch";
+            options = parseArgs(args.slice(1));
+        }
     }
 
     /**
@@ -472,10 +466,12 @@ const runCLI = async () => {
             let episodes: Episode[] = selectedAnime.episodes;
             // @ts-ignore
             if (options.episode) episodes = selectedAnime.episodes.slice(options.episode - 1, selectedAnime.episodes.length - 1);
+            let downloadOutput;
             for (const episode of episodes) {
                 const downloadURL = await episode.getDownloadURL();
                 if (downloadURL) {
-                    await downloadEpisode(downloadURL, false);
+                    downloadOutput = await downloadEpisode(downloadURL, false).then();
+                    if (typeof downloadOutput === "string") console.log(downloadOutput);
                 }
             }
 
@@ -483,9 +479,11 @@ const runCLI = async () => {
             const totalSeconds = Math.ceil((endTime - startTime) / 1000);
             const humanReadableTime = DateParser.secondsToHumanTime(totalSeconds);
 
-            console.clear();
-            // @ts-ignore
-            console.log(`Downloaded ${episodes.length} (${options.episode ?? 1} -> ${selectedAnime.episodes.length}) episodes of ${selectedAnime.title} in ${humanReadableTime}.`);
+            if (typeof downloadOutput === "string") {
+                console.clear();
+                // @ts-ignore
+                console.log(`Downloaded ${episodes.length} (${options.episode ?? 1} -> ${selectedAnime.episodes.length}) episodes of ${selectedAnime.title} in ${humanReadableTime}.`);
+            }
             // @ts-ignore
             console.log(`Downloaded file(s) can be found in "${options["out-dir"] ?? path.join(os.homedir(), "Downloads")}"`)
         } else {
@@ -493,20 +491,24 @@ const runCLI = async () => {
 
             const selectedAnime = selected.selectedAnime;
             let episode: Episode = selected.selectedEpisode;
+            let downloadOutput;
             // @ts-ignore
             if (options.episode) episode = selectedAnime.episodes[parseInt(options.episode) - 1];
                 const downloadURL = await episode.getDownloadURL();
                 if (downloadURL) {
-                    await downloadEpisode(downloadURL, false);
+                    downloadOutput = await downloadEpisode(downloadURL, false);
+                    if (typeof downloadOutput === "string") console.log(downloadOutput);
                 }
 
             const endTime = Date.now();
             const totalSeconds = Math.ceil((endTime - startTime) / 1000);
             const humanReadableTime = DateParser.secondsToHumanTime(totalSeconds);
 
-            console.clear();
-            // @ts-ignore
-            console.log(`Downloaded episode ${options.episode ?? selectedEpisodeIndex} of "${selectedAnime.title}" in ${humanReadableTime}.`);
+            if (typeof downloadOutput === "string") {
+                console.clear();
+                // @ts-ignore
+                console.log(`Downloaded episode ${options.episode ?? selectedEpisodeIndex} of "${selectedAnime.title}" in ${humanReadableTime}.`);
+            }
             // @ts-ignore
             console.log(`Downloaded file(s) can be found in "${options["out-dir"] ?? path.join(os.homedir(), "Downloads")}"`)
         }

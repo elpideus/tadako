@@ -1,0 +1,25 @@
+{
+  "commands": {
+    "watch": "Starts playing the selected anime via mpv",
+    "download": "Downloads the selected anime",
+    "link": "Displays direct links to anime episodes"
+  },
+  "flags": {
+    "--help": { "info": "Displays help regarding the program" },
+    "--version": { "info": "Displays the current version of the program" },
+    "--episode": { "info": "Defines the anime episode for the command", "example": "--episode 6" },
+    "--language": { "info": "Defines the audio language for the anime", "example": "--language jp" },
+    "--genre": { "info": "Defines the genre for the anime search filters", "example": "--genre ecchi" },
+    "--season": { "info": "Defines the season for the anime search filters", "example": "--season winter" },
+    "--year": { "info": "Defines the year for the anime search filters", "example": "--year 2012" },
+    "--category": { "info": "Defines the category for the anime search filters", "example": "--category anime" },
+    "--status": { "info": "Defines the season for the anime search filters", "example": "--status finished" },
+    "--studio": { "info": "Defines the studio for the anime search filters", "example": "--studio TNK" },
+    "--dub": { "info": "Defines the dubbing for the anime search filters", "example": "--dub no" },
+    "--sort": { "info": "Defines the sorting for the anime search filters", "example": "--sort oldest" },
+    "--threads": { "info": "Number of threads to use for download", "example": "--threads 8" },
+    "--out-dir": { "info": "The directory where the file(s) will be downloaded", "example": "--out-dir \"C:/Users/Your Name/Desktop\"" },
+    "--filename": { "info": "Name of the file containing the downloaded anime video (must contain extension)", "example": "--filename \"High School DxD - Episode 6.mp4\"" },
+    "--all": { "info": "Selects all of the anime's episodes for watching or downloading. Useful for watching multiple episodes without interruption." }
+  }
+}
