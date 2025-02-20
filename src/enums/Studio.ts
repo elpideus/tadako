@@ -640,9 +640,40 @@ export enum Studio {
      * and 
      */
     AJIA_DO = "Ajia-Do",
+
+    /**
+     * According to [MyAnimeList](https://myanimelist.net/)
+     * in [this article](https://myanimelist.net/anime/producer/2034/Akatsuki):
+     *
+     * This studio is a subcontracting studio located in Suginami, Tokyo.
+     */
     AKATSUKI = "Akatsuki",
+
+    /**
+     * According to [the official website](https://www.albacrow.info/):
+     *
+     * Albacrow has become a division of Yostar Pictures Co., Ltd. in 2020.
+     *
+     * ---
+     *
+     * According to [AnimeNewsNetwork](https://www.animenewsnetwork.com/)
+     * in [this article](https://www.animenewsnetwork.com/encyclopedia/company.php?id=16122):
+     *
+     * The studio has worked on productions and/or key animations in popular titles like "Azur Lane: Slow Ahead!",
+     * "DARLING in the FRANXX", "Evangelion: 3.0+1.0: Thrice Upon A Time", "Little Witch Academia", "SSSS.Gridman",
+     * "Weathering With You" and "Love is Like a Cocktail".
+     */
     ALBACROW = "Albacrow",
+
+    /**
+     * We couldn't find much about this studio, and the information that we found might not be accurate.
+     *
+     * According to [LiveChart](https://livechart.me) in [this article](https://www.livechart.me/studios/13):
+     *
+     * They have worked on "Trick or Alice" and "Kuro to Kin no Akanai Kagi".
+     */
     AN_DERCEN = "An DerCen",
+
     ANIMA = "Anima",
     ANIMA_CO = "Anima&Co.",
     ANIMATE_FILM = "animate Film",

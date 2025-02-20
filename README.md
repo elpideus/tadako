@@ -198,3 +198,4 @@ These are things that we still need to implement in no specific order.
 - Finish descriptions of all the studios.
 - Automatic download of platform-specific dependencies (like mpv)
 - Add proxy support
+- Make [Jellyfin](https://jellyfin.org/) plugin
