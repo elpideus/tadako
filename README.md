@@ -193,6 +193,8 @@ sources that are helping us in doing so.
 
 These are things that we still need to implement in no specific order.
 
+- Implement localization system
+- Add more data in `info` (and more accurate)
 - Add support for different download servers
 - Create documentation website
 - Finish descriptions of all the studios.

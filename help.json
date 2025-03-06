@@ -2,7 +2,8 @@
   "commands": {
     "watch": "Starts playing the selected anime via mpv",
     "download": "Downloads the selected anime",
-    "link": "Displays direct links to anime episodes"
+    "link": "Displays direct links to anime episodes",
+    "info": "Display detailed information about an anime"
   },
   "flags": {
     "--help": { "info": "Displays help regarding the program" },

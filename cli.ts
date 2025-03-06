@@ -9,7 +9,7 @@
  */
 
 import Tadako from "./src/Tadako";
-import {AudioLanguage, ItalianGenreMapping, Sorting} from "./src/enums";
+import {AudioLanguage, Genre, ItalianGenreMapping, Sorting} from "./src/enums";
 import {exec, execSync, spawn} from "node:child_process";
 import * as readline from "readline";
 import * as path from "node:path";
@@ -541,6 +541,153 @@ const runCLI = async () => {
                 console.log(downloadURL);
             }
         } else console.log("No download URL found for the selected anime/episode.");
+    }
+    else if (command === "info") {
+        console.clear();
+        console.log("Loading anime...");
+
+        // Reuse the existing search functionality to find the anime
+        const searchOptions = {
+            // @ts-ignore
+            genre: options.genre ? (!Number.isNaN(Number(options.genre ?? "null"))) ? options.genre : ItalianGenreMapping[options.genre.toUpperCase()] : null,
+            // @ts-ignore
+            season: options.season || null,
+            // @ts-ignore
+            status: options.status ? (!Number.isNaN(Number(options.status ?? "null"))) ? options.status : (StatusMapping[options.status.toUpperCase()] ?? ItalianStatusMapping[options.status.toUpperCase()]) : null,
+            // @ts-ignore
+            year: options.year || null,
+            // @ts-ignore
+            type: options.type ? (!Number.isNaN(Number(options.type ?? "null"))) ? options.type : MediaTypeMapping[options.type.toUpperCase()] : null,
+            // @ts-ignore
+            studio: options.studio || null,
+            // @ts-ignore
+            language: options.language || AudioLanguage.ITALIAN,
+            // @ts-ignore
+            sort: options.sort ? (!Number.isNaN(Number(options.sort ?? "null"))) ? options.sort : SortingMapping[options.sort.toUpperCase()] : Sorting.OLDEST,
+            // @ts-ignore
+            dub: options.dub ? (!Number.isNaN(Number(options.dub ?? "null"))) ? options.dub : (["TRUE", "YES", "SI"].includes(options.dub.toUpperCase()) ? "1" : "0") : null,
+        }
+
+        let results = (await Tadako.search(query, searchOptions)).results;
+
+        let languageIndex = 0;
+
+        if (results.length === 0) {
+            // @ts-ignore
+            if (!options.language) {
+                const languageValues = Object.values(AudioLanguage);
+                while (languageIndex < languageValues.length) {
+                    searchOptions.language = languageValues[languageIndex];
+                    results = (await Tadako.search(query, searchOptions)).results;
+                    if (results.length > 0) break;
+                    languageIndex++;
+                }
+            }
+            if (results.length === 0) {
+                console.log(`No results found for "${query}" in any language.`);
+                process.exit(1);
+            }
+        }
+
+        let selectedAnime;
+        if (results.length === 1) {
+            selectedAnime = results[0];
+        } else {
+            const animeTitles = results.map((anime: any) => anime.title);
+            const selectedAnimeTitle = await selectOption(animeTitles);
+            selectedAnime = results.find((anime: any) => anime.title === selectedAnimeTitle);
+        }
+
+        if (!selectedAnime) {
+            console.log("Selected anime not found.");
+            process.exit(1);
+        }
+
+        // Load the full anime data
+        await selectedAnime.data();
+
+        console.clear();
+
+        // Get category and status names
+        const categoryName = selectedAnime.category !== null
+            ? Object.keys(MediaTypeMapping).find(key => MediaTypeMapping[key] === selectedAnime.category) || "Unknown"
+            : "Unknown";
+
+        const statusName = selectedAnime.status !== null
+            ? Object.keys(StatusMapping).find(key => StatusMapping[key] === selectedAnime.status) || "Unknown"
+            : "Unknown";
+
+        // Get genre names using Genre enum directly
+        const genreNames = selectedAnime.genres && selectedAnime.genres.length > 0
+            ? selectedAnime.genres.map(genreId => {
+                // Find the genre name by its value
+                return Object.keys(Genre).find(
+                    // @ts-ignore
+                    key => Genre[key] === genreId
+                ) || "Unknown";
+            }).join(', ')
+            : "Unknown";
+
+        // Format release date
+        const releaseDate = selectedAnime.releaseDate
+            ? selectedAnime.releaseDate.toLocaleDateString()
+            : "Unknown";
+
+        // Display anime information with proper terminal bold formatting
+        console.log("\x1b[1m=== ANIME INFORMATION ===\x1b[0m");
+        console.log(`\x1b[1mTitle:\x1b[0m ${selectedAnime.title.replace(" (ITA)", "")}`);
+
+        if (selectedAnime.alternativeTitle) {
+            if (selectedAnime.alternativeTitle !== selectedAnime.title)
+                console.log(`\x1b[1mAlternative Title:\x1b[0m ${selectedAnime.alternativeTitle.replace(" (ITA)", "")}`);
+        }
+
+        console.log(`\x1b[1mEpisodes:\x1b[0m ${selectedAnime.episodes.length}`);
+
+        if (selectedAnime.duration) {
+            console.log(`\x1b[1mEpisode Duration:\x1b[0m ${selectedAnime.duration}`);
+        }
+
+        console.log("");
+
+        if (selectedAnime.trailer) {
+            console.log(`\x1b[1mTrailer:\x1b[0m ${selectedAnime.trailer}`);
+            console.log("");
+        }
+
+        console.log(`\x1b[1mStatus:\x1b[0m ${statusName}`);
+        console.log(`\x1b[1mType:\x1b[0m ${categoryName}`);
+        console.log(`\x1b[1mRelease Date:\x1b[0m ${releaseDate}`);
+
+        if (selectedAnime.studio) {
+            console.log(`\x1b[1mStudio:\x1b[0m ${selectedAnime.studio}`);
+        }
+
+        if (selectedAnime.rating) {
+            console.log(`\x1b[1mRating:\x1b[0m ${selectedAnime.rating}/10`);
+        }
+
+        if (selectedAnime.views) {
+            console.log(`\x1b[1mAnime World Views:\x1b[0m ${selectedAnime.views.toLocaleString()}`);
+        }
+
+        console.log(`\x1b[1mGenres:\x1b[0m ${genreNames}`);
+
+        console.log("");
+        console.log(`\x1b[1mAnime Link:\x1b[0m ${selectedAnime.url}`);
+
+        if (selectedAnime.AniListURL || selectedAnime.MyAnimeListURL) {
+            console.log("");
+            console.log("\x1b[1mExternal Links:\x1b[0m");
+            if (selectedAnime.AniListURL) console.log(` - AniList: ${selectedAnime.AniListURL}`);
+            if (selectedAnime.MyAnimeListURL) console.log(` - MyAnimeList: ${selectedAnime.MyAnimeListURL}`);
+        }
+
+        if (selectedAnime.shortDescription) {
+            console.log("");
+            console.log("\x1b[1mShort Description:\x1b[0m");
+            console.log(selectedAnime.shortDescription);
+        }
     }
 
     else {
