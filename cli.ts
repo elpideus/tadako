@@ -22,6 +22,7 @@ import DateParser from "./src/utilities/DateParser";
 import type Episode from "./src/Episode.ts";
 import {doesNotMatch} from "node:assert";
 import fs from "fs";
+import "./help.json";
 
 const shortFlagMap = {
     h: "help",
@@ -73,7 +74,7 @@ const loadHelpFile = async (): Promise<{commands: Record<string, string>; flags:
         return JSON.parse(data);
     } catch (error) {
         console.error("Error loading help file:", error);
-        process.exit(1);
+        return JSON.parse('{"no help found": "NULL"}')
     }
 };
 
@@ -541,12 +542,10 @@ const runCLI = async () => {
                 console.log(downloadURL);
             }
         } else console.log("No download URL found for the selected anime/episode.");
-    }
-    else if (command === "info") {
+    } else if (command === "info") {
         console.clear();
         console.log("Loading anime...");
 
-        // Reuse the existing search functionality to find the anime
         const searchOptions = {
             // @ts-ignore
             genre: options.genre ? (!Number.isNaN(Number(options.genre ?? "null"))) ? options.genre : ItalianGenreMapping[options.genre.toUpperCase()] : null,
@@ -603,12 +602,10 @@ const runCLI = async () => {
             process.exit(1);
         }
 
-        // Load the full anime data
         await selectedAnime.data();
 
         console.clear();
 
-        // Get category and status names
         const categoryName = selectedAnime.category !== null
             ? Object.keys(MediaTypeMapping).find(key => MediaTypeMapping[key] === selectedAnime.category) || "Unknown"
             : "Unknown";
@@ -617,10 +614,8 @@ const runCLI = async () => {
             ? Object.keys(StatusMapping).find(key => StatusMapping[key] === selectedAnime.status) || "Unknown"
             : "Unknown";
 
-        // Get genre names using Genre enum directly
         const genreNames = selectedAnime.genres && selectedAnime.genres.length > 0
             ? selectedAnime.genres.map(genreId => {
-                // Find the genre name by its value
                 return Object.keys(Genre).find(
                     // @ts-ignore
                     key => Genre[key] === genreId
@@ -633,7 +628,6 @@ const runCLI = async () => {
             ? selectedAnime.releaseDate.toLocaleDateString()
             : "Unknown";
 
-        // Display anime information with proper terminal bold formatting
         console.log("\x1b[1m=== ANIME INFORMATION ===\x1b[0m");
         console.log(`\x1b[1mTitle:\x1b[0m ${selectedAnime.title.replace(" (ITA)", "")}`);
 

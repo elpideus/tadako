@@ -6,6 +6,19 @@ import type SearchFilters from "./interfaces/SearchFilters";
 import { MediaType } from "./enums";
 import type { CheerioAPI } from "cheerio";
 
+
+/**
+ * <div id="link">
+ *      <a href="google.com" id="google" class="blue">Vai a google</a>
+ *      <a href="facebook.com" id="facebook">Vai a facebook</a>
+ * </div>
+ *
+ * $ = new CheerioAPI("sitoacaso.it")
+ * $.id("google").text = "Link per google".
+ *
+ * */
+
+
 /**
  * Main class of the Tadako API. Provides most of the useful functions of the library, like list and search.
  */
